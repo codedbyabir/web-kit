@@ -52,6 +52,9 @@ final class Plugin {
 		require_once WK_PATH . 'includes/class-wk-faq-metabox.php';
 		new Faq_Metabox();
 
+		require_once WK_PATH . 'includes/class-wk-settings.php';
+		new Settings();
+
 		load_plugin_textdomain( 'web-kit', false, dirname( plugin_basename( WK_FILE ) ) . '/languages' );
 	}
 

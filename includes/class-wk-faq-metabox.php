@@ -22,30 +22,29 @@ class Faq_Metabox {
 	const NONCE_ACTION = 'wk_faq_save';
 	const NONCE_NAME   = 'wk_faq_nonce';
 
-	/**
-	 * Post types that get the FAQ box. Posts only, per current scope.
-	 *
-	 * @var string[]
-	 */
-	const POST_TYPES = [ 'post' ];
-
 	public function __construct() {
-		add_action( 'add_meta_boxes', [ $this, 'add_meta_box' ] );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_box' ], 10, 2 );
 		add_action( 'save_post', [ $this, 'save' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 	}
 
-	public function add_meta_box() {
-		foreach ( self::POST_TYPES as $post_type ) {
-			add_meta_box(
-				'wk_faq_metabox',
-				__( 'FAQs', 'web-kit' ),
-				[ $this, 'render' ],
-				$post_type,
-				'normal',
-				'high'
-			);
+	/**
+	 * @param string   $post_type
+	 * @param \WP_Post $post
+	 */
+	public function add_meta_box( $post_type, $post ) {
+		if ( ! Settings::faq_enabled_for_post( $post ) ) {
+			return;
 		}
+
+		add_meta_box(
+			'wk_faq_metabox',
+			__( 'FAQs', 'web-kit' ),
+			[ $this, 'render' ],
+			$post_type,
+			'normal',
+			'high'
+		);
 	}
 
 	/**
@@ -57,7 +56,7 @@ class Faq_Metabox {
 		}
 
 		$screen = get_current_screen();
-		if ( ! $screen || ! in_array( $screen->post_type, self::POST_TYPES, true ) ) {
+		if ( ! $screen || ! in_array( $screen->post_type, Settings::get_faq_post_types(), true ) ) {
 			return;
 		}
 
@@ -181,7 +180,7 @@ class Faq_Metabox {
 			return;
 		}
 
-		if ( ! in_array( get_post_type( $post_id ), self::POST_TYPES, true ) ) {
+		if ( ! in_array( get_post_type( $post_id ), Settings::get_faq_post_types(), true ) ) {
 			return;
 		}
 
