@@ -1,0 +1,51 @@
+/**
+ * Web Kit - FAQ Widget - base styles
+ * Colors/typography/spacing beyond this are controlled from the widget's
+ * Style tab via inline selectors, so keep this file structural.
+ */
+
+.wk-faq-list {
+	width: 100%;
+}
+
+.wk-faq-item {
+	padding-bottom: 24px;
+	margin-bottom: 24px;
+}
+
+.wk-faq-item:last-child {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.wk-faq-has-divider .wk-faq-item {
+	border-bottom: 1px solid #E5E9F0;
+}
+
+.wk-faq-has-divider .wk-faq-item:last-child {
+	border-bottom: none;
+}
+
+.wk-faq-question {
+	margin: 0 0 8px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.wk-faq-answer {
+	line-height: 1.6;
+}
+
+.wk-faq-answer > *:first-child {
+	margin-top: 0;
+}
+
+.wk-faq-answer > *:last-child {
+	margin-bottom: 0;
+}
+
+.wk-faq-empty {
+	font-style: italic;
+	opacity: 0.7;
+}

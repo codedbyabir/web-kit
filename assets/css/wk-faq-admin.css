@@ -1,0 +1,72 @@
+/**
+ * Web Kit - FAQ repeater meta box (wp-admin only).
+ */
+
+.wk-faq-repeater .wk-faq-rows {
+	margin-top: 8px;
+}
+
+.wk-faq-row {
+	border: 1px solid #dcdcde;
+	background: #fff;
+	margin-bottom: 10px;
+	border-radius: 4px;
+}
+
+.wk-faq-row-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 12px;
+	background: #f6f7f7;
+	border-bottom: 1px solid #dcdcde;
+	cursor: pointer;
+	border-radius: 4px 4px 0 0;
+}
+
+.wk-faq-row.is-collapsed .wk-faq-row-body {
+	display: none;
+}
+
+.wk-faq-row.is-collapsed .wk-faq-row-header {
+	border-bottom: none;
+	border-radius: 4px;
+}
+
+.wk-faq-row-title {
+	flex: 1;
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wk-faq-remove {
+	color: #b32d2e;
+	font-size: 18px;
+	line-height: 1;
+	text-decoration: none;
+	padding: 0 4px;
+}
+
+.wk-faq-remove:hover {
+	color: #dc3232;
+}
+
+.wk-faq-row-body {
+	padding: 12px;
+}
+
+.wk-faq-row-body label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.wk-faq-row-body p {
+	margin: 0 0 12px;
+}
+
+.wk-faq-row-body p:last-child {
+	margin-bottom: 0;
+}

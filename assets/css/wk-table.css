@@ -1,0 +1,75 @@
+/**
+ * Web Kit - HTML Table Widget - base styles
+ * Colors/spacing beyond this are controlled from the widget's Style tab
+ * via inline selectors, so keep this file structural.
+ */
+
+.wk-table-wrap {
+	width: 100%;
+}
+
+.wk-table-wrap.wk-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.wk-table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: auto;
+	/* Outer border for the whole table; color/width overridden from the
+	   widget's Style tab (Border Color / Border Width). */
+	border: 1px solid #E5E9F0;
+}
+
+.wk-table thead th {
+	text-align: center;
+	white-space: nowrap;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	padding: 16px 20px;
+	/* Header intentionally has no internal borders - only the outer table
+	   border wraps it. */
+	border: none;
+}
+
+.wk-table tbody td {
+	padding: 18px 20px;
+	border-right: 1px solid #E5E9F0;
+	border-bottom: 1px solid #E5E9F0;
+	vertical-align: middle;
+}
+
+/* Note: last-row/last-column cell borders are intentionally kept (not
+   stripped) - border-collapse merges them with the table's own outer
+   border into a single clean line rather than doubling it up. */
+
+.wk-table tbody td.wk-first-col {
+	font-weight: 600;
+}
+
+.wk-table tbody td a {
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.wk-table tbody td a:hover {
+	text-decoration: underline;
+}
+
+/* Sticky header (only kicks in when the wrapper also scrolls, e.g. inside
+   a fixed-height container, or you set a max-height on .wk-scroll). */
+.wk-table.wk-sticky-head thead th {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+
+/* Small screens: tighten padding a bit; wrapper scroll (if enabled) handles
+   the rest so columns never get crushed. */
+@media (max-width: 767px) {
+	.wk-table thead th,
+	.wk-table tbody td {
+		padding: 12px 14px;
+	}
+}
