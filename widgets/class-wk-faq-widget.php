@@ -54,6 +54,60 @@ class Faq extends Widget_Base {
 
 	protected function register_controls() {
 
+	/* =========================================================
+ * CONTENT TAB — TITLE
+ * ========================================================= */
+$this->start_controls_section(
+	'section_title',
+	[
+		'label' => __( 'Title', 'web-kit' ),
+		'tab'   => Controls_Manager::TAB_CONTENT,
+	]
+);
+
+$this->add_control(
+	'show_title',
+	[
+		'label'        => __( 'Show Title', 'web-kit' ),
+		'type'         => Controls_Manager::SWITCHER,
+		'default'      => 'yes',
+		'return_value' => 'yes',
+	]
+);
+
+$this->add_control(
+	'faq_title',
+	[
+		'label'       => __( 'Title Text', 'web-kit' ),
+		'type'        => Controls_Manager::TEXT,
+		'default'     => __( 'Frequently Asked Questions', 'web-kit' ),
+		'placeholder' => __( 'Frequently Asked Questions', 'web-kit' ),
+		'label_block' => true,
+		'dynamic'     => [ 'active' => true ],
+		'condition'   => [ 'show_title' => 'yes' ],
+	]
+);
+
+$this->add_control(
+	'title_tag',
+	[
+		'label'     => __( 'Title HTML Tag', 'web-kit' ),
+		'type'      => Controls_Manager::SELECT,
+		'options'   => [
+			'h1'  => 'H1',
+			'h2'  => 'H2',
+			'h3'  => 'H3',
+			'h4'  => 'H4',
+			'h5'  => 'H5',
+			'div' => 'div',
+		],
+		'default'   => 'h2',
+		'condition' => [ 'show_title' => 'yes' ],
+	]
+);
+
+$this->end_controls_section();
+
 		/* =========================================================
 		 * CONTENT TAB — SETTINGS
 		 * ========================================================= */
@@ -122,6 +176,72 @@ class Faq extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+
+		/* =========================================================
+ * STYLE TAB — TITLE
+ * ========================================================= */
+$this->start_controls_section(
+	'section_style_title',
+	[
+		'label'     => __( 'Title', 'web-kit' ),
+		'tab'       => Controls_Manager::TAB_STYLE,
+		'condition' => [ 'show_title' => 'yes' ],
+	]
+);
+
+$this->add_control(
+	'title_color',
+	[
+		'label'     => __( 'Color', 'web-kit' ),
+		'type'      => Controls_Manager::COLOR,
+		'default'   => '#1F3A5F',
+		'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'color: {{VALUE}};' ],
+	]
+);
+
+$this->add_group_control(
+	Group_Control_Typography::get_type(),
+	[
+		'name'            => 'title_typography',
+		'selector'        => '{{WRAPPER}} .wk-faq-title',
+		'fields_options'  => [
+			'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 26 ] ],
+			'font_weight' => [ 'default' => '700' ],
+		],
+	]
+);
+
+$this->add_responsive_control(
+	'title_alignment',
+	[
+		'label'     => __( 'Alignment', 'web-kit' ),
+		'type'      => Controls_Manager::CHOOSE,
+		'options'   => [
+			'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+			'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+			'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+		],
+		'default'   => 'left',
+		'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'text-align: {{VALUE}};' ],
+	]
+);
+
+$this->add_responsive_control(
+	'title_spacing',
+	[
+		'label'      => __( 'Spacing Below', 'web-kit' ),
+		'type'       => Controls_Manager::SLIDER,
+		'size_units' => [ 'px' ],
+		'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
+		'default'    => [ 'size' => 20, 'unit' => 'px' ],
+		'selectors'  => [
+			'{{WRAPPER}} .wk-faq-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+		],
+	]
+);
+
+$this->end_controls_section();
 
 		/* =========================================================
 		 * STYLE TAB — QUESTION
@@ -266,6 +386,18 @@ class Faq extends Widget_Base {
 				}
 			)
 		);
+
+				if ( 'yes' === $settings['show_title'] && ! empty( $settings['faq_title'] ) ) {
+			$title_tag = in_array( $settings['title_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'div' ], true )
+				? $settings['title_tag']
+				: 'h2';
+
+			printf(
+				'<%1$s class="wk-faq-title">%2$s</%1$s>',
+				esc_attr( $title_tag ),
+				esc_html( $settings['faq_title'] )
+			);
+		}
 
 		if ( empty( $items ) ) {
 			if ( ! empty( $settings['empty_message'] ) ) {
