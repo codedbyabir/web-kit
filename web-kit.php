@@ -1,15 +1,18 @@
 <?php
 /**
  * Plugin Name:       Web Kit
- * Plugin URI:        https://example.com/web-kit
- * Description:       Custom Elementor widgets. Includes an HTML-rendered (no JS table library) repeater-driven data/comparison table widget.
- * Version:           1.0.0
- * Author:            Your Company
+ * Description:       Custom elementor widgets.
+ * Version:           1.1.0
+ * Author:            Nexiby LLC
+ * Author URI:        https://nexiby.com
  * Text Domain:       web-kit
+ * Requires at least: 6.3
+ * Tested up to:      7.1
  * Requires PHP:      7.4
- * Elementor tested up to: 3.26.0
- * Elementor Pro tested up to: 3.26.0
- *
+ * Stable tag:        1.1.0
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * 
  * @package Web_Kit
  */
 
@@ -17,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'WK_VERSION', '1.0.0' );
+define( 'WK_VERSION', '1.1.0' );
 define( 'WK_FILE', __FILE__ );
 define( 'WK_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WK_URL', plugin_dir_url( __FILE__ ) );

@@ -188,8 +188,9 @@ class Faq_Metabox {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array items are sanitized individually in the foreach loop below.
 		$raw = isset( $_POST['wk_faq_items'] ) && is_array( $_POST['wk_faq_items'] )
-			? wp_unslash( $_POST['wk_faq_items'] )
+			? wp_unslash( $_POST['wk_faq_items'] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized in foreach loop below.
 			: [];
 
 		$clean = [];

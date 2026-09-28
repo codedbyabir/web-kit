@@ -3,10 +3,11 @@
  * Web Kit - FAQ Widget
  *
  * Reads the FAQ items saved on the current post (see Faq_Metabox /
- * "_wk_faq_items" post meta) and renders them as a plain, always-expanded
- * list. No post picker - it always reflects whatever post the page/template
- * is currently rendering for, so the same widget works correctly across a
- * single-post template applied to many posts.
+ * "_wk_faq_items" post meta) and renders them either as a plain,
+ * always-expanded list, or as a grid of cards. No post picker - it always
+ * reflects whatever post the page/template is currently rendering for, so
+ * the same widget works correctly across a single-post template applied to
+ * many posts.
  *
  * @package Web_Kit
  */
@@ -19,7 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
 
 class Faq extends Widget_Base {
 
@@ -40,7 +43,7 @@ class Faq extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'faq', 'frequently asked questions', 'questions', 'schema' ];
+		return [ 'faq', 'frequently asked questions', 'questions', 'schema', 'grid', 'custom faq', 'repeater' ];
 	}
 
 	/**
@@ -53,60 +56,6 @@ class Faq extends Widget_Base {
 	}
 
 	protected function register_controls() {
-
-	/* =========================================================
- * CONTENT TAB — TITLE
- * ========================================================= */
-$this->start_controls_section(
-	'section_title',
-	[
-		'label' => __( 'Title', 'web-kit' ),
-		'tab'   => Controls_Manager::TAB_CONTENT,
-	]
-);
-
-$this->add_control(
-	'show_title',
-	[
-		'label'        => __( 'Show Title', 'web-kit' ),
-		'type'         => Controls_Manager::SWITCHER,
-		'default'      => 'yes',
-		'return_value' => 'yes',
-	]
-);
-
-$this->add_control(
-	'faq_title',
-	[
-		'label'       => __( 'Title Text', 'web-kit' ),
-		'type'        => Controls_Manager::TEXT,
-		'default'     => __( 'Frequently Asked Questions', 'web-kit' ),
-		'placeholder' => __( 'Frequently Asked Questions', 'web-kit' ),
-		'label_block' => true,
-		'dynamic'     => [ 'active' => true ],
-		'condition'   => [ 'show_title' => 'yes' ],
-	]
-);
-
-$this->add_control(
-	'title_tag',
-	[
-		'label'     => __( 'Title HTML Tag', 'web-kit' ),
-		'type'      => Controls_Manager::SELECT,
-		'options'   => [
-			'h1'  => 'H1',
-			'h2'  => 'H2',
-			'h3'  => 'H3',
-			'h4'  => 'H4',
-			'h5'  => 'H5',
-			'div' => 'div',
-		],
-		'default'   => 'h2',
-		'condition' => [ 'show_title' => 'yes' ],
-	]
-);
-
-$this->end_controls_section();
 
 		/* =========================================================
 		 * CONTENT TAB — SETTINGS
@@ -123,7 +72,7 @@ $this->end_controls_section();
 			'source_note',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => __( 'This widget automatically shows the FAQs added in the "FAQs" box on this post\'s edit screen (Posts only, for now).', 'web-kit' ),
+				'raw'             => __( 'This widget automatically displays the FAQs added to this post. If the post has no FAQs, you can enable custom FAQs in the "Custom FAQs" section below.', 'web-kit' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			]
 		);
@@ -141,16 +90,6 @@ $this->end_controls_section();
 					'div' => 'div',
 				],
 				'default' => 'h3',
-			]
-		);
-
-		$this->add_control(
-			'show_divider',
-			[
-				'label'        => __( 'Divider Between FAQs', 'web-kit' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
 			]
 		);
 
@@ -177,71 +116,284 @@ $this->end_controls_section();
 
 		$this->end_controls_section();
 
+		/* =========================================================
+		 * CONTENT TAB — CUSTOM FAQS
+		 * ========================================================= */
+		$this->start_controls_section(
+			'section_custom_faqs',
+			[
+				'label' => __( 'Custom FAQs', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'custom_faq',
+			[
+				'label'        => __( 'Enable Custom FAQs', 'web-kit' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'return_value' => 'yes',
+				'description'  => __( 'Enable to provide custom FAQs when the post has no FAQs saved.', 'web-kit' ),
+			]
+		);
+
+		$this->add_control(
+			'custom_faq_behavior',
+			[
+				'label'       => __( 'Display Rule', 'web-kit' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => [
+					'fallback' => __( 'Only if post has no FAQs (Fallback)', 'web-kit' ),
+					'override' => __( 'Always show custom FAQs (Override post FAQs)', 'web-kit' ),
+				],
+				'default'     => 'fallback',
+				'condition'   => [
+					'custom_faq' => 'yes',
+				],
+				'description' => __( 'Choose whether custom FAQs display only when the post has no FAQs, or always override the post FAQs.', 'web-kit' ),
+			]
+		);
+
+		$custom_faqs_repeater = new Repeater();
+
+		$custom_faqs_repeater->add_control(
+			'question',
+			[
+				'label'       => __( 'Question', 'web-kit' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'FAQ Question', 'web-kit' ),
+				'placeholder' => __( 'Enter your question', 'web-kit' ),
+				'label_block' => true,
+				'dynamic'     => [ 'active' => true ],
+			]
+		);
+
+		$custom_faqs_repeater->add_control(
+			'answer',
+			[
+				'label'       => __( 'Answer', 'web-kit' ),
+				'type'        => Controls_Manager::WYSIWYG,
+				'default'     => __( 'FAQ Answer', 'web-kit' ),
+				'placeholder' => __( 'Enter your answer', 'web-kit' ),
+				'dynamic'     => [ 'active' => true ],
+			]
+		);
+
+		$this->add_control(
+			'custom_faqs',
+			[
+				'label'       => __( 'Custom FAQ Items', 'web-kit' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $custom_faqs_repeater->get_controls(),
+				'default'     => [
+					[
+						'question' => __( 'What is your refund policy?', 'web-kit' ),
+						'answer'   => __( 'We offer a full refund within 30 days of purchase if you are not completely satisfied.', 'web-kit' ),
+					],
+					[
+						'question' => __( 'How can I contact support?', 'web-kit' ),
+						'answer'   => __( 'You can reach our friendly support team 24/7 through our contact page or email.', 'web-kit' ),
+					],
+				],
+				'title_field' => '{{{ question }}}',
+				'condition'   => [
+					'custom_faq' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 
 		/* =========================================================
- * STYLE TAB — TITLE
- * ========================================================= */
-$this->start_controls_section(
-	'section_style_title',
-	[
-		'label'     => __( 'Title', 'web-kit' ),
-		'tab'       => Controls_Manager::TAB_STYLE,
-		'condition' => [ 'show_title' => 'yes' ],
-	]
-);
+		 * CONTENT TAB — TITLE
+		 * ========================================================= */
+		$this->start_controls_section(
+			'section_title',
+			[
+				'label' => __( 'Title', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
 
-$this->add_control(
-	'title_color',
-	[
-		'label'     => __( 'Color', 'web-kit' ),
-		'type'      => Controls_Manager::COLOR,
-		'default'   => '#1F3A5F',
-		'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'color: {{VALUE}};' ],
-	]
-);
+		$this->add_control(
+			'show_title',
+			[
+				'label'        => __( 'Show Title', 'web-kit' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			]
+		);
 
-$this->add_group_control(
-	Group_Control_Typography::get_type(),
-	[
-		'name'            => 'title_typography',
-		'selector'        => '{{WRAPPER}} .wk-faq-title',
-		'fields_options'  => [
-			'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 26 ] ],
-			'font_weight' => [ 'default' => '700' ],
-		],
-	]
-);
+		$this->add_control(
+			'faq_title',
+			[
+				'label'       => __( 'Title Text', 'web-kit' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Frequently Asked Questions', 'web-kit' ),
+				'placeholder' => __( 'Frequently Asked Questions', 'web-kit' ),
+				'label_block' => true,
+				'dynamic'     => [ 'active' => true ],
+				'condition'   => [ 'show_title' => 'yes' ],
+			]
+		);
 
-$this->add_responsive_control(
-	'title_alignment',
-	[
-		'label'     => __( 'Alignment', 'web-kit' ),
-		'type'      => Controls_Manager::CHOOSE,
-		'options'   => [
-			'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-			'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-			'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-		],
-		'default'   => 'left',
-		'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'text-align: {{VALUE}};' ],
-	]
-);
+		$this->add_control(
+			'title_tag',
+			[
+				'label'     => __( 'Title HTML Tag', 'web-kit' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => [
+					'h1'  => 'H1',
+					'h2'  => 'H2',
+					'h3'  => 'H3',
+					'h4'  => 'H4',
+					'h5'  => 'H5',
+					'div' => 'div',
+				],
+				'default'   => 'h2',
+				'condition' => [ 'show_title' => 'yes' ],
+			]
+		);
 
-$this->add_responsive_control(
-	'title_spacing',
-	[
-		'label'      => __( 'Spacing Below', 'web-kit' ),
-		'type'       => Controls_Manager::SLIDER,
-		'size_units' => [ 'px' ],
-		'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
-		'default'    => [ 'size' => 20, 'unit' => 'px' ],
-		'selectors'  => [
-			'{{WRAPPER}} .wk-faq-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-		],
-	]
-);
+		$this->end_controls_section();
 
-$this->end_controls_section();
+		/* =========================================================
+		 * CONTENT TAB — LAYOUT
+		 * ========================================================= */
+		$this->start_controls_section(
+			'section_layout',
+			[
+				'label' => __( 'Layout', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'layout',
+			[
+				'label'   => __( 'Layout', 'web-kit' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
+					'list' => [ 'title' => __( 'List', 'web-kit' ), 'icon' => 'eicon-editor-list-ul' ],
+					'grid' => [ 'title' => __( 'Grid', 'web-kit' ), 'icon' => 'eicon-gallery-grid' ],
+				],
+				'default' => 'list',
+				'toggle'  => false,
+			]
+		);
+
+		$this->add_responsive_control(
+			'columns',
+			[
+				'label'          => __( 'Columns', 'web-kit' ),
+				'type'           => Controls_Manager::NUMBER,
+				'min'            => 1,
+				'max'            => 6,
+				'default'        => 2,
+				'tablet_default' => 2,
+				'mobile_default' => 1,
+				'condition'      => [ 'layout' => 'grid' ],
+				'selectors'      => [
+					'{{WRAPPER}} .wk-faq-grid' => 'grid-template-columns: repeat({{VALUE}}, 1fr);',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'grid_gap',
+			[
+				'label'      => __( 'Gap', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
+				'default'    => [ 'size' => 20, 'unit' => 'px' ],
+				'condition'  => [ 'layout' => 'grid' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-faq-grid' => 'gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_divider',
+			[
+				'label'        => __( 'Divider Between FAQs', 'web-kit' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'condition'    => [ 'layout' => 'list' ],
+				'description'  => __( 'List layout only. In Grid layout, use the Item style section\'s border instead.', 'web-kit' ),
+			]
+		);
+
+		$this->end_controls_section();
+
+		/* =========================================================
+		 * STYLE TAB — TITLE
+		 * ========================================================= */
+		$this->start_controls_section(
+			'section_style_title',
+			[
+				'label'     => __( 'Title', 'web-kit' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'show_title' => 'yes' ],
+			]
+		);
+
+		$this->add_control(
+			'title_color',
+			[
+				'label'     => __( 'Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1F3A5F',
+				'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'            => 'title_typography',
+				'selector'        => '{{WRAPPER}} .wk-faq-title',
+				'fields_options'  => [
+					'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 26 ] ],
+					'font_weight' => [ 'default' => '700' ],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_alignment',
+			[
+				'label'     => __( 'Alignment', 'web-kit' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+				],
+				'default'   => 'left',
+				'selectors' => [ '{{WRAPPER}} .wk-faq-title' => 'text-align: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_spacing',
+			[
+				'label'      => __( 'Spacing Below', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
+				'default'    => [ 'size' => 20, 'unit' => 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-faq-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 
 		/* =========================================================
 		 * STYLE TAB — QUESTION
@@ -267,10 +419,10 @@ $this->end_controls_section();
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'question_typography',
-				'selector' => '{{WRAPPER}} .wk-faq-question',
-				'fields_options' => [
-					'font_size' => [ 'default' => [ 'unit' => 'px', 'size' => 18 ] ],
+				'name'            => 'question_typography',
+				'selector'        => '{{WRAPPER}} .wk-faq-question',
+				'fields_options'  => [
+					'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 18 ] ],
 					'font_weight' => [ 'default' => '600' ],
 				],
 			]
@@ -324,13 +476,14 @@ $this->end_controls_section();
 		$this->end_controls_section();
 
 		/* =========================================================
-		 * STYLE TAB — LIST / SPACING
+		 * STYLE TAB — LIST SPACING (list layout only)
 		 * ========================================================= */
 		$this->start_controls_section(
 			'section_style_list',
 			[
-				'label' => __( 'List', 'web-kit' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'label'     => __( 'List Spacing', 'web-kit' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'layout' => 'list' ],
 			]
 		);
 
@@ -343,8 +496,10 @@ $this->end_controls_section();
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
 				'default'    => [ 'size' => 24, 'unit' => 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .wk-faq-item' => 'padding-bottom: {{SIZE}}{{UNIT}}; margin-bottom: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .wk-faq-item:last-child' => 'padding-bottom: 0; margin-bottom: 0;',
+					// Scoped to :not(.wk-faq-grid) so this can never bleed into
+					// Grid layout even if the value stays set after switching.
+					'{{WRAPPER}} .wk-faq-list:not(.wk-faq-grid) .wk-faq-item' => 'padding-bottom: {{SIZE}}{{UNIT}}; margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wk-faq-list:not(.wk-faq-grid) .wk-faq-item:last-child' => 'padding-bottom: 0; margin-bottom: 0;',
 				],
 			]
 		);
@@ -363,31 +518,184 @@ $this->end_controls_section();
 		);
 
 		$this->end_controls_section();
+
+		/* =========================================================
+		 * STYLE TAB — ITEM (padding / border / radius / hover)
+		 * Applies in both layouts; most useful for Grid "cards", but
+		 * works standalone in List layout too.
+		 * ========================================================= */
+		$this->start_controls_section(
+			'section_style_item',
+			[
+				'label' => __( 'Item', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'item_bg_color',
+			[
+				'label'     => __( 'Background Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [ '{{WRAPPER}} .wk-faq-item' => 'background-color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'item_padding',
+			[
+				'label'      => __( 'Padding', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-faq-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'item_border',
+				'selector' => '{{WRAPPER}} .wk-faq-item',
+			]
+		);
+
+		$this->add_responsive_control(
+			'item_border_radius',
+			[
+				'label'      => __( 'Border Radius', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [ 'min' => 0, 'max' => 60 ],
+					'%'  => [ 'min' => 0, 'max' => 50 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-faq-item' => 'border-radius: {{SIZE}}{{UNIT}}; overflow: hidden;',
+				],
+			]
+		);
+
+		$this->add_control(
+			'hover_heading',
+			[
+				'label'     => __( 'Hover State', 'web-kit' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'hover_bg_color',
+			[
+				'label'     => __( 'Background Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [ '{{WRAPPER}} .wk-faq-item:hover' => 'background-color: {{VALUE}};' ],
+			]
+		);
+
+		$this->add_control(
+			'hover_text_color',
+			[
+				'label'     => __( 'Text Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wk-faq-item:hover .wk-faq-question' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wk-faq-item:hover .wk-faq-answer'   => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'hover_border_color',
+			[
+				'label'     => __( 'Border Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [ '{{WRAPPER}} .wk-faq-item:hover' => 'border-color: {{VALUE}};' ],
+				'condition' => [ 'item_border_border!' => [ '', 'none' ] ],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Whether we're rendering inside the Elementor editor (as opposed to
+	 * the live front-end), so the "feature not enabled" notice only shows
+	 * to the person building the page, never to visitors.
+	 */
+	private function is_editor_edit_mode() {
+		return did_action( 'elementor/loaded' )
+			&& isset( \Elementor\Plugin::$instance )
+			&& \Elementor\Plugin::$instance->editor->is_edit_mode();
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$post_id  = get_the_ID();
-		$items    = $post_id ? get_post_meta( $post_id, '_wk_faq_items', true ) : [];
 
-		if ( ! is_array( $items ) ) {
+		$custom_faq_enabled = 'yes' === ( isset( $settings['custom_faq'] ) ? $settings['custom_faq'] : '' );
+		$custom_behavior    = isset( $settings['custom_faq_behavior'] ) ? $settings['custom_faq_behavior'] : 'fallback';
+
+		// Prepare custom items from repeater.
+		$custom_items = [];
+		if ( $custom_faq_enabled && ! empty( $settings['custom_faqs'] ) && is_array( $settings['custom_faqs'] ) ) {
+			$custom_items = array_values(
+				array_filter(
+					$settings['custom_faqs'],
+					function ( $item ) {
+						$q = isset( $item['question'] ) ? trim( $item['question'] ) : '';
+						$a = isset( $item['answer'] ) ? trim( wp_strip_all_tags( $item['answer'] ) ) : '';
+						return '' !== $q || '' !== $a;
+					}
+				)
+			);
+		}
+
+		// Prepare post items from post meta.
+		$post_items       = [];
+		$post_faq_enabled = $post_id && \WebKit\Settings::faq_enabled_for_post( $post_id );
+
+		if ( $post_faq_enabled ) {
+			$raw_post_items = get_post_meta( $post_id, '_wk_faq_items', true );
+			if ( is_array( $raw_post_items ) ) {
+				$post_items = array_values(
+					array_filter(
+						$raw_post_items,
+						function ( $item ) {
+							$q = isset( $item['question'] ) ? trim( $item['question'] ) : '';
+							$a = isset( $item['answer'] ) ? trim( wp_strip_all_tags( $item['answer'] ) ) : '';
+							return '' !== $q || '' !== $a;
+						}
+					)
+				);
+			}
+		}
+
+		// If post FAQs are not enabled and custom FAQs are not enabled, handle editor notice.
+		if ( ! $post_faq_enabled && ! $custom_faq_enabled ) {
+			if ( $this->is_editor_edit_mode() ) {
+				printf(
+					'<div class="wk-faq-empty">%s</div>',
+					esc_html__( 'The FAQ feature is not enabled for this post type/taxonomy in Web Kit → Settings.', 'web-kit' )
+				);
+			}
+			return;
+		}
+
+		// Determine which items to render.
+		if ( $custom_faq_enabled && 'override' === $custom_behavior ) {
+			$items = $custom_items;
+		} elseif ( ! empty( $post_items ) ) {
+			$items = $post_items;
+		} elseif ( $custom_faq_enabled ) {
+			$items = $custom_items;
+		} else {
 			$items = [];
 		}
 
-		// Drop any fully-empty rows defensively (shouldn't normally occur;
-		// the meta box already skips them on save).
-		$items = array_values(
-			array_filter(
-				$items,
-				function ( $item ) {
-					$q = isset( $item['question'] ) ? trim( $item['question'] ) : '';
-					$a = isset( $item['answer'] ) ? trim( wp_strip_all_tags( $item['answer'] ) ) : '';
-					return '' !== $q || '' !== $a;
-				}
-			)
-		);
-
-				if ( 'yes' === $settings['show_title'] && ! empty( $settings['faq_title'] ) ) {
+		if ( 'yes' === $settings['show_title'] && ! empty( $settings['faq_title'] ) ) {
 			$title_tag = in_array( $settings['title_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'div' ], true )
 				? $settings['title_tag']
 				: 'h2';
@@ -410,19 +718,29 @@ $this->end_controls_section();
 			? $settings['question_tag']
 			: 'h3';
 
+		$is_grid = 'grid' === $settings['layout'];
+
 		$list_classes = [ 'wk-faq-list' ];
-		if ( 'yes' === $settings['show_divider'] ) {
+		if ( $is_grid ) {
+			$list_classes[] = 'wk-faq-grid';
+		} elseif ( 'yes' === $settings['show_divider'] ) {
 			$list_classes[] = 'wk-faq-has-divider';
 		}
 		?>
 		<div class="<?php echo esc_attr( implode( ' ', $list_classes ) ); ?>">
 			<?php foreach ( $items as $item ) : ?>
+				<?php
+				$answer_html = isset( $item['answer'] ) ? $item['answer'] : '';
+				if ( '' !== $answer_html && false === strpos( $answer_html, '<p>' ) && false === strpos( $answer_html, '<br' ) ) {
+					$answer_html = wpautop( $answer_html );
+				}
+				?>
 				<div class="wk-faq-item">
 					<<?php echo esc_attr( $tag ); ?> class="wk-faq-question">
 						<?php echo esc_html( $item['question'] ); ?>
 					</<?php echo esc_attr( $tag ); ?>>
 					<div class="wk-faq-answer">
-						<?php echo wp_kses_post( $item['answer'] ); ?>
+						<?php echo wp_kses_post( $answer_html ); ?>
 					</div>
 				</div>
 			<?php endforeach; ?>
