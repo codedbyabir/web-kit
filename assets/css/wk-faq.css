@@ -80,3 +80,8 @@
 .wk-faq-title {
 	margin: 0 0 20px;
 }
+
+/* Ensure empty FAQ widget container has no height or spacing on live frontend */
+body:not(.elementor-editor-active) .elementor-widget-wk-faq:empty {
+	display: none !important;
+}

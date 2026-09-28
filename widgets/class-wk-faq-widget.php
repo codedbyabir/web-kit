@@ -26,6 +26,25 @@ use Elementor\Group_Control_Border;
 
 class Faq extends Widget_Base {
 
+	public function __construct( $data = [], $args = null ) {
+		parent::__construct( $data, $args );
+
+		self::init_hooks();
+	}
+
+	/**
+	 * Register frontend rendering filters for Section, Container, and Widget.
+	 */
+	public static function init_hooks() {
+		static $hooked = false;
+		if ( ! $hooked ) {
+			add_filter( 'elementor/frontend/section/should_render', [ __CLASS__, 'filter_section_should_render' ], 10, 2 );
+			add_filter( 'elementor/frontend/container/should_render', [ __CLASS__, 'filter_section_should_render' ], 10, 2 );
+			add_filter( 'elementor/frontend/widget/should_render', [ __CLASS__, 'filter_widget_should_render' ], 10, 2 );
+			$hooked = true;
+		}
+	}
+
 	public function get_name() {
 		return 'wk-faq';
 	}
@@ -111,6 +130,17 @@ class Faq extends Widget_Base {
 				'default'      => 'yes',
 				'return_value' => 'yes',
 				'description'  => __( 'Adds FAQPage structured data so search engines can potentially show these Q&As directly in results.', 'web-kit' ),
+			]
+		);
+
+		$this->add_control(
+			'wk_faq_hide_parent_section',
+			[
+				'label'        => __( 'Hide Section When Empty', 'web-kit' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => __( 'Automatically hide the parent Section or Container on the frontend when this post has no FAQs.', 'web-kit' ),
 			]
 		);
 
@@ -622,18 +652,35 @@ class Faq extends Widget_Base {
 
 	/**
 	 * Whether we're rendering inside the Elementor editor (as opposed to
-	 * the live front-end), so the "feature not enabled" notice only shows
-	 * to the person building the page, never to visitors.
+	 * the live front-end).
+	 *
+	 * @return bool
 	 */
-	private function is_editor_edit_mode() {
+	private static function is_editor_mode() {
 		return did_action( 'elementor/loaded' )
 			&& isset( \Elementor\Plugin::$instance )
 			&& \Elementor\Plugin::$instance->editor->is_edit_mode();
 	}
 
-	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$post_id  = get_the_ID();
+	private function is_editor_edit_mode() {
+		return self::is_editor_mode();
+	}
+
+	/**
+	 * Get resolved FAQ items (combining dynamic post meta FAQs and custom FAQs).
+	 *
+	 * @param array $settings
+	 * @return array
+	 */
+	public function get_resolved_items( $settings = [] ) {
+		if ( empty( $settings ) ) {
+			$settings = $this->get_settings_for_display();
+		}
+
+		$post_id = get_the_ID();
+		if ( ! $post_id ) {
+			$post_id = get_queried_object_id();
+		}
 
 		$custom_faq_val     = isset( $settings['wk_faq_custom_faq'] ) ? $settings['wk_faq_custom_faq'] : ( isset( $settings['custom_faq'] ) ? $settings['custom_faq'] : '' );
 		$custom_faq_enabled = 'yes' === $custom_faq_val;
@@ -678,26 +725,249 @@ class Faq extends Widget_Base {
 			}
 		}
 
-		// If post FAQs are not enabled and custom FAQs are not enabled, handle editor notice.
+		// If post FAQs are not enabled and custom FAQs are not enabled, return empty.
 		if ( ! $post_faq_enabled && ! $custom_faq_enabled ) {
-			if ( $this->is_editor_edit_mode() ) {
-				printf(
-					'<div class="wk-faq-empty">%s</div>',
-					esc_html__( 'The FAQ feature is not enabled for this post type/taxonomy in Web Kit → Settings.', 'web-kit' )
-				);
-			}
-			return;
+			return [];
 		}
 
 		// Determine which items to render.
 		if ( $custom_faq_enabled && 'override' === $custom_behavior ) {
-			$items = $custom_items;
+			return $custom_items;
 		} elseif ( ! empty( $post_items ) ) {
-			$items = $post_items;
+			return $post_items;
 		} elseif ( $custom_faq_enabled ) {
-			$items = $custom_items;
-		} else {
-			$items = [];
+			return $custom_items;
+		}
+
+		return [];
+	}
+
+	/**
+	 * Whether there are any valid FAQ items to display for the current post.
+	 *
+	 * @param array $settings
+	 * @return bool
+	 */
+	public function has_items_to_render( $settings = [] ) {
+		$items = $this->get_resolved_items( $settings );
+		return ! empty( $items );
+	}
+
+	/**
+	 * Hide the parent Section or Container on the frontend if it contains
+	 * an FAQ widget that has no FAQs to display for the current post.
+	 *
+	 * @param bool                    $should_render
+	 * @param \Elementor\Element_Base $element
+	 * @return bool
+	 */
+	public static function filter_section_should_render( $should_render, $element ) {
+		if ( ! $should_render ) {
+			return false;
+		}
+
+		// Never hide in Elementor editor mode so editors can configure the page.
+		if ( self::is_editor_mode() ) {
+			return $should_render;
+		}
+
+		$faq_widgets = self::find_faq_widgets( $element );
+		if ( empty( $faq_widgets ) ) {
+			return $should_render;
+		}
+
+		// If this section/container contains other major unrelated widgets (e.g. post content, form), don't hide the whole section.
+		if ( self::has_unrelated_content( $element ) ) {
+			return $should_render;
+		}
+
+		// Check if any FAQ widget in this section/container has FAQs to display.
+		foreach ( $faq_widgets as $widget ) {
+			$settings    = $widget->get_settings_for_display();
+			$hide_parent = isset( $settings['wk_faq_hide_parent_section'] ) ? $settings['wk_faq_hide_parent_section'] : 'yes';
+
+			if ( 'yes' !== $hide_parent ) {
+				// User explicitly disabled hiding the parent section for this widget.
+				return $should_render;
+			}
+
+			if ( $widget->has_items_to_render( $settings ) ) {
+				return $should_render;
+			}
+		}
+
+		// None of the FAQ widgets have items to render, and parent hiding is enabled.
+		return false;
+	}
+
+	/**
+	 * Filter widget rendering on the frontend.
+	 * Completely suppresses printing the Elementor widget wrapper if there are no FAQs to display.
+	 *
+	 * @param bool                    $should_render
+	 * @param \Elementor\Element_Base $element
+	 * @return bool
+	 */
+	public static function filter_widget_should_render( $should_render, $element ) {
+		if ( ! $should_render ) {
+			return false;
+		}
+
+		if ( self::is_editor_mode() ) {
+			return $should_render;
+		}
+
+		if ( $element instanceof self || ( method_exists( $element, 'get_name' ) && 'wk-faq' === $element->get_name() ) ) {
+			$settings = method_exists( $element, 'get_settings_for_display' ) ? $element->get_settings_for_display() : [];
+			if ( method_exists( $element, 'has_items_to_render' ) && ! $element->has_items_to_render( $settings ) ) {
+				return false;
+			}
+		}
+
+		return $should_render;
+	}
+
+	/**
+	 * Recursively find all 'wk-faq' widgets inside an Elementor element.
+	 *
+	 * @param \Elementor\Element_Base $element
+	 * @return \WebKit\Widgets\Faq[]
+	 */
+	private static function find_faq_widgets( $element ) {
+		$widgets = [];
+
+		if ( $element instanceof self || ( method_exists( $element, 'get_name' ) && 'wk-faq' === $element->get_name() ) ) {
+			$widgets[] = $element;
+		}
+
+		if ( method_exists( $element, 'get_children' ) ) {
+			$children = $element->get_children();
+			if ( is_array( $children ) ) {
+				foreach ( $children as $child ) {
+					$widgets = array_merge( $widgets, self::find_faq_widgets( $child ) );
+				}
+			}
+		}
+
+		return $widgets;
+	}
+
+	/**
+	 * Get all widgets within an Elementor element tree recursively.
+	 *
+	 * @param \Elementor\Element_Base $element
+	 * @return \Elementor\Widget_Base[]
+	 */
+	private static function get_all_widgets( $element ) {
+		$widgets = [];
+
+		if ( 'widget' === $element->get_type() ) {
+			$widgets[] = $element;
+		}
+
+		if ( method_exists( $element, 'get_children' ) ) {
+			$children = $element->get_children();
+			if ( is_array( $children ) ) {
+				foreach ( $children as $child ) {
+					$widgets = array_merge( $widgets, self::get_all_widgets( $child ) );
+				}
+			}
+		}
+
+		return $widgets;
+	}
+
+	/**
+	 * Check if an element contains any content unrelated to the FAQ widget.
+	 *
+	 * @param \Elementor\Element_Base $element
+	 * @return bool
+	 */
+	private static function has_unrelated_content( $element ) {
+		$settings = method_exists( $element, 'get_settings' ) ? $element->get_settings() : [];
+		$css_classes = isset( $settings['_css_classes'] ) ? (string) $settings['_css_classes'] : '';
+		if ( false !== strpos( $css_classes, 'wk-faq-section' ) || false !== strpos( $css_classes, 'faq-section' ) ) {
+			return false;
+		}
+
+		$all_widgets = self::get_all_widgets( $element );
+
+		// Common accessories in an FAQ section (headings, text descriptions, dividers, spacers, icons, images, buttons):
+		$faq_accessory_widgets = [
+			'wk-faq',
+			'heading',
+			'text-editor',
+			'divider',
+			'spacer',
+			'icon',
+			'image',
+			'button',
+		];
+
+		foreach ( $all_widgets as $widget ) {
+			$name = $widget->get_name();
+			if ( ! in_array( $name, $faq_accessory_widgets, true ) ) {
+				// Contains an unrelated widget (e.g. form, post content, loop, pricing table, etc.)
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	protected function render() {
+		$settings = $this->get_settings_for_display();
+		$post_id  = get_the_ID();
+		if ( ! $post_id ) {
+			$post_id = get_queried_object_id();
+		}
+		$items    = $this->get_resolved_items( $settings );
+
+		// If no items are available:
+		if ( empty( $items ) ) {
+			// On the frontend, completely hide the widget block.
+			if ( ! $this->is_editor_edit_mode() ) {
+				return;
+			}
+
+			// In the Elementor editor, show a notice so editors can select and edit the widget.
+			$post_faq_enabled   = $post_id && \WebKit\Settings::faq_enabled_for_post( $post_id );
+			$custom_faq_val     = isset( $settings['wk_faq_custom_faq'] ) ? $settings['wk_faq_custom_faq'] : ( isset( $settings['custom_faq'] ) ? $settings['custom_faq'] : '' );
+			$custom_faq_enabled = 'yes' === $custom_faq_val;
+
+			if ( ! $post_faq_enabled && ! $custom_faq_enabled ) {
+				printf(
+					'<div class="wk-faq-empty">%s</div>',
+					esc_html__( 'The FAQ feature is not enabled for this post type/taxonomy in Web Kit → Settings.', 'web-kit' )
+				);
+				return;
+			}
+
+			$show_title        = isset( $settings['wk_faq_show_title'] ) ? $settings['wk_faq_show_title'] : ( isset( $settings['show_title'] ) ? $settings['show_title'] : 'yes' );
+			$faq_title         = isset( $settings['wk_faq_faq_title'] ) ? $settings['wk_faq_faq_title'] : ( isset( $settings['faq_title'] ) ? $settings['faq_title'] : '' );
+			$title_tag_setting = isset( $settings['wk_faq_title_tag'] ) ? $settings['wk_faq_title_tag'] : ( isset( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2' );
+
+			if ( 'yes' === $show_title && ! empty( $faq_title ) ) {
+				$title_tag = in_array( $title_tag_setting, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'div' ], true )
+					? $title_tag_setting
+					: 'h2';
+
+				printf(
+					'<%1$s class="wk-faq-title">%2$s</%1$s>',
+					esc_attr( $title_tag ),
+					esc_html( $faq_title )
+				);
+			}
+
+			$empty_message = isset( $settings['wk_faq_empty_message'] ) ? $settings['wk_faq_empty_message'] : ( isset( $settings['empty_message'] ) ? $settings['empty_message'] : '' );
+			if ( ! empty( $empty_message ) ) {
+				printf(
+					'<div class="wk-faq-empty">%s <span style="font-size: 11px; opacity: 0.7;">(%s)</span></div>',
+					esc_html( $empty_message ),
+					esc_html__( 'Hidden on live site because no FAQs are available for this post', 'web-kit' )
+				);
+			}
+			return;
 		}
 
 		$show_title        = isset( $settings['wk_faq_show_title'] ) ? $settings['wk_faq_show_title'] : ( isset( $settings['show_title'] ) ? $settings['show_title'] : 'yes' );
@@ -714,15 +984,6 @@ class Faq extends Widget_Base {
 				esc_attr( $title_tag ),
 				esc_html( $faq_title )
 			);
-		}
-
-		$empty_message = isset( $settings['wk_faq_empty_message'] ) ? $settings['wk_faq_empty_message'] : ( isset( $settings['empty_message'] ) ? $settings['empty_message'] : '' );
-
-		if ( empty( $items ) ) {
-			if ( ! empty( $empty_message ) ) {
-				printf( '<div class="wk-faq-empty">%s</div>', esc_html( $empty_message ) );
-			}
-			return;
 		}
 
 		$question_tag_setting = isset( $settings['wk_faq_question_tag'] ) ? $settings['wk_faq_question_tag'] : ( isset( $settings['question_tag'] ) ? $settings['question_tag'] : 'h3' );
@@ -810,3 +1071,5 @@ class Faq extends Widget_Base {
 		);
 	}
 }
+
+Faq::init_hooks();
