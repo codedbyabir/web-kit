@@ -61,7 +61,7 @@ class Faq extends Widget_Base {
 		 * CONTENT TAB — SETTINGS
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_settings',
+			'wk_faq_section_settings',
 			[
 				'label' => __( 'FAQ Settings', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -69,7 +69,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'source_note',
+			'wk_faq_source_note',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => __( 'This widget automatically displays the FAQs added to this post. If the post has no FAQs, you can enable custom FAQs in the "Custom FAQs" section below.', 'web-kit' ),
@@ -78,7 +78,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'question_tag',
+			'wk_faq_question_tag',
 			[
 				'label'   => __( 'Question HTML Tag', 'web-kit' ),
 				'type'    => Controls_Manager::SELECT,
@@ -94,7 +94,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'empty_message',
+			'wk_faq_empty_message',
 			[
 				'label'       => __( 'Message When No FAQs', 'web-kit' ),
 				'type'        => Controls_Manager::TEXT,
@@ -104,7 +104,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'enable_schema',
+			'wk_faq_enable_schema',
 			[
 				'label'        => __( 'Output FAQ Schema (JSON-LD)', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -120,7 +120,7 @@ class Faq extends Widget_Base {
 		 * CONTENT TAB — CUSTOM FAQS
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_custom_faqs',
+			'wk_faq_section_custom_faqs',
 			[
 				'label' => __( 'Custom FAQs', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -128,7 +128,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'custom_faq',
+			'wk_faq_custom_faq',
 			[
 				'label'        => __( 'Enable Custom FAQs', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -139,7 +139,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'custom_faq_behavior',
+			'wk_faq_custom_faq_behavior',
 			[
 				'label'       => __( 'Display Rule', 'web-kit' ),
 				'type'        => Controls_Manager::SELECT,
@@ -149,7 +149,7 @@ class Faq extends Widget_Base {
 				],
 				'default'     => 'fallback',
 				'condition'   => [
-					'custom_faq' => 'yes',
+					'wk_faq_custom_faq' => 'yes',
 				],
 				'description' => __( 'Choose whether custom FAQs display only when the post has no FAQs, or always override the post FAQs.', 'web-kit' ),
 			]
@@ -181,7 +181,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'custom_faqs',
+			'wk_faq_custom_faqs',
 			[
 				'label'       => __( 'Custom FAQ Items', 'web-kit' ),
 				'type'        => Controls_Manager::REPEATER,
@@ -198,7 +198,7 @@ class Faq extends Widget_Base {
 				],
 				'title_field' => '{{{ question }}}',
 				'condition'   => [
-					'custom_faq' => 'yes',
+					'wk_faq_custom_faq' => 'yes',
 				],
 			]
 		);
@@ -209,7 +209,7 @@ class Faq extends Widget_Base {
 		 * CONTENT TAB — TITLE
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_title',
+			'wk_faq_section_title',
 			[
 				'label' => __( 'Title', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -217,7 +217,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'show_title',
+			'wk_faq_show_title',
 			[
 				'label'        => __( 'Show Title', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -227,7 +227,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'faq_title',
+			'wk_faq_faq_title',
 			[
 				'label'       => __( 'Title Text', 'web-kit' ),
 				'type'        => Controls_Manager::TEXT,
@@ -235,12 +235,12 @@ class Faq extends Widget_Base {
 				'placeholder' => __( 'Frequently Asked Questions', 'web-kit' ),
 				'label_block' => true,
 				'dynamic'     => [ 'active' => true ],
-				'condition'   => [ 'show_title' => 'yes' ],
+				'condition'   => [ 'wk_faq_show_title' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
-			'title_tag',
+			'wk_faq_title_tag',
 			[
 				'label'     => __( 'Title HTML Tag', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
@@ -253,7 +253,7 @@ class Faq extends Widget_Base {
 					'div' => 'div',
 				],
 				'default'   => 'h2',
-				'condition' => [ 'show_title' => 'yes' ],
+				'condition' => [ 'wk_faq_show_title' => 'yes' ],
 			]
 		);
 
@@ -263,7 +263,7 @@ class Faq extends Widget_Base {
 		 * CONTENT TAB — LAYOUT
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_layout',
+			'wk_faq_section_layout',
 			[
 				'label' => __( 'Layout', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -271,7 +271,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'layout',
+			'wk_faq_layout',
 			[
 				'label'   => __( 'Layout', 'web-kit' ),
 				'type'    => Controls_Manager::CHOOSE,
@@ -285,7 +285,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'columns',
+			'wk_faq_columns',
 			[
 				'label'          => __( 'Columns', 'web-kit' ),
 				'type'           => Controls_Manager::NUMBER,
@@ -294,7 +294,7 @@ class Faq extends Widget_Base {
 				'default'        => 2,
 				'tablet_default' => 2,
 				'mobile_default' => 1,
-				'condition'      => [ 'layout' => 'grid' ],
+				'condition'      => [ 'wk_faq_layout' => 'grid' ],
 				'selectors'      => [
 					'{{WRAPPER}} .wk-faq-grid' => 'grid-template-columns: repeat({{VALUE}}, 1fr);',
 				],
@@ -302,14 +302,14 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'grid_gap',
+			'wk_faq_grid_gap',
 			[
 				'label'      => __( 'Gap', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
 				'default'    => [ 'size' => 20, 'unit' => 'px' ],
-				'condition'  => [ 'layout' => 'grid' ],
+				'condition'  => [ 'wk_faq_layout' => 'grid' ],
 				'selectors'  => [
 					'{{WRAPPER}} .wk-faq-grid' => 'gap: {{SIZE}}{{UNIT}};',
 				],
@@ -317,13 +317,13 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'show_divider',
+			'wk_faq_show_divider',
 			[
 				'label'        => __( 'Divider Between FAQs', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-				'condition'    => [ 'layout' => 'list' ],
+				'condition'    => [ 'wk_faq_layout' => 'list' ],
 				'description'  => __( 'List layout only. In Grid layout, use the Item style section\'s border instead.', 'web-kit' ),
 			]
 		);
@@ -334,16 +334,16 @@ class Faq extends Widget_Base {
 		 * STYLE TAB — TITLE
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_title',
+			'wk_faq_section_style_title',
 			[
 				'label'     => __( 'Title', 'web-kit' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => [ 'show_title' => 'yes' ],
+				'condition' => [ 'wk_faq_show_title' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
-			'title_color',
+			'wk_faq_title_color',
 			[
 				'label'     => __( 'Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -355,7 +355,7 @@ class Faq extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'            => 'title_typography',
+				'name'            => 'wk_faq_title_typography',
 				'selector'        => '{{WRAPPER}} .wk-faq-title',
 				'fields_options'  => [
 					'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 26 ] ],
@@ -365,7 +365,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'title_alignment',
+			'wk_faq_title_alignment',
 			[
 				'label'     => __( 'Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
@@ -380,7 +380,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'title_spacing',
+			'wk_faq_title_spacing',
 			[
 				'label'      => __( 'Spacing Below', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -399,7 +399,7 @@ class Faq extends Widget_Base {
 		 * STYLE TAB — QUESTION
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_question',
+			'wk_faq_section_style_question',
 			[
 				'label' => __( 'Question', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -407,7 +407,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'question_color',
+			'wk_faq_question_color',
 			[
 				'label'     => __( 'Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -419,7 +419,7 @@ class Faq extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'            => 'question_typography',
+				'name'            => 'wk_faq_question_typography',
 				'selector'        => '{{WRAPPER}} .wk-faq-question',
 				'fields_options'  => [
 					'font_size'   => [ 'default' => [ 'unit' => 'px', 'size' => 18 ] ],
@@ -429,7 +429,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'question_spacing',
+			'wk_faq_question_spacing',
 			[
 				'label'      => __( 'Spacing Below', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -448,7 +448,7 @@ class Faq extends Widget_Base {
 		 * STYLE TAB — ANSWER
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_answer',
+			'wk_faq_section_style_answer',
 			[
 				'label' => __( 'Answer', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -456,7 +456,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'answer_color',
+			'wk_faq_answer_color',
 			[
 				'label'     => __( 'Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -468,7 +468,7 @@ class Faq extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'answer_typography',
+				'name'     => 'wk_faq_answer_typography',
 				'selector' => '{{WRAPPER}} .wk-faq-answer',
 			]
 		);
@@ -479,16 +479,16 @@ class Faq extends Widget_Base {
 		 * STYLE TAB — LIST SPACING (list layout only)
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_list',
+			'wk_faq_section_style_list',
 			[
 				'label'     => __( 'List Spacing', 'web-kit' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => [ 'layout' => 'list' ],
+				'condition' => [ 'wk_faq_layout' => 'list' ],
 			]
 		);
 
 		$this->add_responsive_control(
-			'item_spacing',
+			'wk_faq_item_spacing',
 			[
 				'label'      => __( 'Space Between FAQs', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -505,12 +505,12 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'divider_color',
+			'wk_faq_divider_color',
 			[
 				'label'     => __( 'Divider Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#E5E9F0',
-				'condition' => [ 'show_divider' => 'yes' ],
+				'condition' => [ 'wk_faq_show_divider' => 'yes' ],
 				'selectors' => [
 					'{{WRAPPER}} .wk-faq-has-divider .wk-faq-item' => 'border-bottom-color: {{VALUE}};',
 				],
@@ -525,7 +525,7 @@ class Faq extends Widget_Base {
 		 * works standalone in List layout too.
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_item',
+			'wk_faq_section_style_item',
 			[
 				'label' => __( 'Item', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -533,7 +533,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'item_bg_color',
+			'wk_faq_item_bg_color',
 			[
 				'label'     => __( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -542,7 +542,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'item_padding',
+			'wk_faq_item_padding',
 			[
 				'label'      => __( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
@@ -556,13 +556,13 @@ class Faq extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'item_border',
+				'name'     => 'wk_faq_item_border',
 				'selector' => '{{WRAPPER}} .wk-faq-item',
 			]
 		);
 
 		$this->add_responsive_control(
-			'item_border_radius',
+			'wk_faq_item_border_radius',
 			[
 				'label'      => __( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -578,7 +578,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'hover_heading',
+			'wk_faq_hover_heading',
 			[
 				'label'     => __( 'Hover State', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
@@ -587,7 +587,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'hover_bg_color',
+			'wk_faq_hover_bg_color',
 			[
 				'label'     => __( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -596,7 +596,7 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'hover_text_color',
+			'wk_faq_hover_text_color',
 			[
 				'label'     => __( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -608,12 +608,12 @@ class Faq extends Widget_Base {
 		);
 
 		$this->add_control(
-			'hover_border_color',
+			'wk_faq_hover_border_color',
 			[
 				'label'     => __( 'Border Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [ '{{WRAPPER}} .wk-faq-item:hover' => 'border-color: {{VALUE}};' ],
-				'condition' => [ 'item_border_border!' => [ '', 'none' ] ],
+				'condition' => [ 'wk_faq_item_border_border!' => [ '', 'none' ] ],
 			]
 		);
 
@@ -635,15 +635,20 @@ class Faq extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$post_id  = get_the_ID();
 
-		$custom_faq_enabled = 'yes' === ( isset( $settings['custom_faq'] ) ? $settings['custom_faq'] : '' );
-		$custom_behavior    = isset( $settings['custom_faq_behavior'] ) ? $settings['custom_faq_behavior'] : 'fallback';
+		$custom_faq_val     = isset( $settings['wk_faq_custom_faq'] ) ? $settings['wk_faq_custom_faq'] : ( isset( $settings['custom_faq'] ) ? $settings['custom_faq'] : '' );
+		$custom_faq_enabled = 'yes' === $custom_faq_val;
+		$custom_behavior    = isset( $settings['wk_faq_custom_faq_behavior'] ) ? $settings['wk_faq_custom_faq_behavior'] : ( isset( $settings['custom_faq_behavior'] ) ? $settings['custom_faq_behavior'] : 'fallback' );
 
 		// Prepare custom items from repeater.
+		$custom_items_raw = ! empty( $settings['wk_faq_custom_faqs'] ) && is_array( $settings['wk_faq_custom_faqs'] )
+			? $settings['wk_faq_custom_faqs']
+			: ( ! empty( $settings['custom_faqs'] ) && is_array( $settings['custom_faqs'] ) ? $settings['custom_faqs'] : [] );
+
 		$custom_items = [];
-		if ( $custom_faq_enabled && ! empty( $settings['custom_faqs'] ) && is_array( $settings['custom_faqs'] ) ) {
+		if ( $custom_faq_enabled && ! empty( $custom_items_raw ) ) {
 			$custom_items = array_values(
 				array_filter(
-					$settings['custom_faqs'],
+					$custom_items_raw,
 					function ( $item ) {
 						$q = isset( $item['question'] ) ? trim( $item['question'] ) : '';
 						$a = isset( $item['answer'] ) ? trim( wp_strip_all_tags( $item['answer'] ) ) : '';
@@ -695,35 +700,45 @@ class Faq extends Widget_Base {
 			$items = [];
 		}
 
-		if ( 'yes' === $settings['show_title'] && ! empty( $settings['faq_title'] ) ) {
-			$title_tag = in_array( $settings['title_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'div' ], true )
-				? $settings['title_tag']
+		$show_title        = isset( $settings['wk_faq_show_title'] ) ? $settings['wk_faq_show_title'] : ( isset( $settings['show_title'] ) ? $settings['show_title'] : 'yes' );
+		$faq_title         = isset( $settings['wk_faq_faq_title'] ) ? $settings['wk_faq_faq_title'] : ( isset( $settings['faq_title'] ) ? $settings['faq_title'] : '' );
+		$title_tag_setting = isset( $settings['wk_faq_title_tag'] ) ? $settings['wk_faq_title_tag'] : ( isset( $settings['title_tag'] ) ? $settings['title_tag'] : 'h2' );
+
+		if ( 'yes' === $show_title && ! empty( $faq_title ) ) {
+			$title_tag = in_array( $title_tag_setting, [ 'h1', 'h2', 'h3', 'h4', 'h5', 'div' ], true )
+				? $title_tag_setting
 				: 'h2';
 
 			printf(
 				'<%1$s class="wk-faq-title">%2$s</%1$s>',
 				esc_attr( $title_tag ),
-				esc_html( $settings['faq_title'] )
+				esc_html( $faq_title )
 			);
 		}
 
+		$empty_message = isset( $settings['wk_faq_empty_message'] ) ? $settings['wk_faq_empty_message'] : ( isset( $settings['empty_message'] ) ? $settings['empty_message'] : '' );
+
 		if ( empty( $items ) ) {
-			if ( ! empty( $settings['empty_message'] ) ) {
-				printf( '<div class="wk-faq-empty">%s</div>', esc_html( $settings['empty_message'] ) );
+			if ( ! empty( $empty_message ) ) {
+				printf( '<div class="wk-faq-empty">%s</div>', esc_html( $empty_message ) );
 			}
 			return;
 		}
 
-		$tag = in_array( $settings['question_tag'], [ 'h2', 'h3', 'h4', 'h5', 'div' ], true )
-			? $settings['question_tag']
+		$question_tag_setting = isset( $settings['wk_faq_question_tag'] ) ? $settings['wk_faq_question_tag'] : ( isset( $settings['question_tag'] ) ? $settings['question_tag'] : 'h3' );
+		$tag                  = in_array( $question_tag_setting, [ 'h2', 'h3', 'h4', 'h5', 'div' ], true )
+			? $question_tag_setting
 			: 'h3';
 
-		$is_grid = 'grid' === $settings['layout'];
+		$layout_setting       = isset( $settings['wk_faq_layout'] ) ? $settings['wk_faq_layout'] : ( isset( $settings['layout'] ) ? $settings['layout'] : 'list' );
+		$is_grid              = 'grid' === $layout_setting;
+
+		$show_divider_setting = isset( $settings['wk_faq_show_divider'] ) ? $settings['wk_faq_show_divider'] : ( isset( $settings['show_divider'] ) ? $settings['show_divider'] : 'yes' );
 
 		$list_classes = [ 'wk-faq-list' ];
 		if ( $is_grid ) {
 			$list_classes[] = 'wk-faq-grid';
-		} elseif ( 'yes' === $settings['show_divider'] ) {
+		} elseif ( 'yes' === $show_divider_setting ) {
 			$list_classes[] = 'wk-faq-has-divider';
 		}
 		?>
@@ -747,7 +762,8 @@ class Faq extends Widget_Base {
 		</div>
 		<?php
 
-		if ( 'yes' === $settings['enable_schema'] ) {
+		$enable_schema = isset( $settings['wk_faq_enable_schema'] ) ? $settings['wk_faq_enable_schema'] : ( isset( $settings['enable_schema'] ) ? $settings['enable_schema'] : 'yes' );
+		if ( 'yes' === $enable_schema ) {
 			$this->render_schema( $items );
 		}
 	}

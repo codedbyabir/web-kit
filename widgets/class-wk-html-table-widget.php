@@ -66,7 +66,7 @@ class Html_Table extends Widget_Base {
 		 * CONTENT TAB — COLUMNS
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_columns',
+			'wk_table_section_columns',
 			[
 				'label' => __( 'Columns', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -112,7 +112,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'columns',
+			'wk_table_columns',
 			[
 				'label'       => __( 'Table Columns', 'web-kit' ),
 				'type'        => Controls_Manager::REPEATER,
@@ -135,7 +135,7 @@ class Html_Table extends Widget_Base {
 		 * CONTENT TAB — ROWS
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_rows',
+			'wk_table_section_rows',
 			[
 				'label' => __( 'Rows', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -192,7 +192,7 @@ class Html_Table extends Widget_Base {
 		}
 
 		$this->add_control(
-			'rows',
+			'wk_table_rows',
 			[
 				'label'       => __( 'Table Rows', 'web-kit' ),
 				'type'        => Controls_Manager::REPEATER,
@@ -217,7 +217,7 @@ class Html_Table extends Widget_Base {
 		 * CONTENT TAB — TABLE SETTINGS
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_settings',
+			'wk_table_section_settings',
 			[
 				'label' => __( 'Table Settings', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -225,7 +225,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'column_count_mode',
+			'wk_table_column_count_mode',
 			[
 				'label'   => __( 'Column Count', 'web-kit' ),
 				'type'    => Controls_Manager::SELECT,
@@ -238,19 +238,19 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'manual_column_count',
+			'wk_table_manual_column_count',
 			[
 				'label'     => __( 'Number of Columns', 'web-kit' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 1,
 				'max'       => self::MAX_COLUMNS,
 				'default'   => 6,
-				'condition' => [ 'column_count_mode' => 'manual' ],
+				'condition' => [ 'wk_table_column_count_mode' => 'manual' ],
 			]
 		);
 
 		$this->add_control(
-			'responsive_scroll',
+			'wk_table_responsive_scroll',
 			[
 				'label'        => __( 'Horizontal Scroll on Mobile', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -260,7 +260,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'sticky_header',
+			'wk_table_sticky_header',
 			[
 				'label'        => __( 'Sticky Header Row', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -270,7 +270,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'first_col_accent',
+			'wk_table_first_col_accent',
 			[
 				'label'        => __( 'Accent-Style First Column', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
@@ -286,7 +286,7 @@ class Html_Table extends Widget_Base {
 		 * STYLE TAB — HEADER
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_header',
+			'wk_table_section_style_header',
 			[
 				'label' => __( 'Header Row', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -294,7 +294,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'header_bg_color',
+			'wk_table_header_bg_color',
 			[
 				'label'     => __( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -304,7 +304,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'header_text_color',
+			'wk_table_header_text_color',
 			[
 				'label'     => __( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -316,13 +316,13 @@ class Html_Table extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'header_typography',
+				'name'     => 'wk_table_header_typography',
 				'selector' => '{{WRAPPER}} .wk-table thead th',
 			]
 		);
 
 		$this->add_responsive_control(
-			'header_padding',
+			'wk_table_header_padding',
 			[
 				'label'      => __( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
@@ -339,7 +339,7 @@ class Html_Table extends Widget_Base {
 		 * STYLE TAB — BODY
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_body',
+			'wk_table_section_style_body',
 			[
 				'label' => __( 'Body', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -347,7 +347,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'body_bg_color',
+			'wk_table_body_bg_color',
 			[
 				'label'     => __( 'Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -357,7 +357,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'body_alt_bg_color',
+			'wk_table_body_alt_bg_color',
 			[
 				'label'     => __( 'Alternate Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -367,7 +367,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'body_text_color',
+			'wk_table_body_text_color',
 			[
 				'label'     => __( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -377,7 +377,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'accent_color',
+			'wk_table_accent_color',
 			[
 				'label'       => __( 'Accent Color', 'web-kit' ),
 				'type'        => Controls_Manager::COLOR,
@@ -393,13 +393,13 @@ class Html_Table extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'     => 'body_typography',
+				'name'     => 'wk_table_body_typography',
 				'selector' => '{{WRAPPER}} .wk-table tbody td',
 			]
 		);
 
 		$this->add_responsive_control(
-			'body_padding',
+			'wk_table_body_padding',
 			[
 				'label'      => __( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
@@ -416,7 +416,7 @@ class Html_Table extends Widget_Base {
 		 * STYLE TAB — BORDERS / CONTAINER
 		 * ========================================================= */
 		$this->start_controls_section(
-			'section_style_border',
+			'wk_table_section_style_border',
 			[
 				'label' => __( 'Borders & Container', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -424,7 +424,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'border_color',
+			'wk_table_border_color',
 			[
 				'label'     => __( 'Border Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
@@ -437,7 +437,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'border_width',
+			'wk_table_border_width',
 			[
 				'label'     => __( 'Border Width', 'web-kit' ),
 				'type'      => Controls_Manager::SLIDER,
@@ -451,7 +451,7 @@ class Html_Table extends Widget_Base {
 		);
 
 		$this->add_control(
-			'table_radius',
+			'wk_table_table_radius',
 			[
 				'label'     => __( 'Corner Radius', 'web-kit' ),
 				'type'      => Controls_Manager::SLIDER,
@@ -469,16 +469,18 @@ class Html_Table extends Widget_Base {
 	 * Resolve how many columns to actually render.
 	 */
 	private function get_column_count( array $settings, array $columns ) {
-		if ( 'manual' === $settings['column_count_mode'] ) {
-			return max( 1, (int) $settings['manual_column_count'] );
+		$mode = isset( $settings['wk_table_column_count_mode'] ) ? $settings['wk_table_column_count_mode'] : ( isset( $settings['column_count_mode'] ) ? $settings['column_count_mode'] : 'auto' );
+		if ( 'manual' === $mode ) {
+			$manual = isset( $settings['wk_table_manual_column_count'] ) ? $settings['wk_table_manual_column_count'] : ( isset( $settings['manual_column_count'] ) ? $settings['manual_column_count'] : 6 );
+			return max( 1, (int) $manual );
 		}
 		return count( $columns );
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$columns  = ! empty( $settings['columns'] ) ? $settings['columns'] : [];
-		$rows     = ! empty( $settings['rows'] ) ? $settings['rows'] : [];
+		$columns  = ! empty( $settings['wk_table_columns'] ) ? $settings['wk_table_columns'] : ( ! empty( $settings['columns'] ) ? $settings['columns'] : [] );
+		$rows     = ! empty( $settings['wk_table_rows'] ) ? $settings['wk_table_rows'] : ( ! empty( $settings['rows'] ) ? $settings['rows'] : [] );
 
 		$column_count = $this->get_column_count( $settings, $columns );
 
@@ -486,13 +488,17 @@ class Html_Table extends Widget_Base {
 			return;
 		}
 
+		$responsive_scroll = isset( $settings['wk_table_responsive_scroll'] ) ? $settings['wk_table_responsive_scroll'] : ( isset( $settings['responsive_scroll'] ) ? $settings['responsive_scroll'] : 'yes' );
+		$sticky_header     = isset( $settings['wk_table_sticky_header'] ) ? $settings['wk_table_sticky_header'] : ( isset( $settings['sticky_header'] ) ? $settings['sticky_header'] : '' );
+		$first_col_accent  = isset( $settings['wk_table_first_col_accent'] ) ? $settings['wk_table_first_col_accent'] : ( isset( $settings['first_col_accent'] ) ? $settings['first_col_accent'] : 'yes' );
+
 		$wrap_classes = [ 'wk-table-wrap' ];
-		if ( 'yes' === $settings['responsive_scroll'] ) {
+		if ( 'yes' === $responsive_scroll ) {
 			$wrap_classes[] = 'wk-scroll';
 		}
 
 		$table_classes = [ 'wk-table' ];
-		if ( 'yes' === $settings['sticky_header'] ) {
+		if ( 'yes' === $sticky_header ) {
 			$table_classes[] = 'wk-sticky-head';
 		}
 		?>
@@ -531,7 +537,7 @@ class Html_Table extends Widget_Base {
 								$bg        = ! empty( $row[ $bg_key ] ) ? $row[ $bg_key ] : '';
 
 								$cell_classes = [];
-								if ( 1 === $i && 'yes' === $settings['first_col_accent'] ) {
+								if ( 1 === $i && 'yes' === $first_col_accent ) {
 									$cell_classes[] = 'wk-first-col';
 								}
 
