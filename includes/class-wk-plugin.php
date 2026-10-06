@@ -52,6 +52,9 @@ final class Plugin {
 		require_once WK_PATH . 'includes/class-wk-faq-metabox.php';
 		new Faq_Metabox();
 
+		require_once WK_PATH . 'includes/class-wk-reviewer-metabox.php';
+		new Reviewer_Metabox();
+
 		require_once WK_PATH . 'includes/class-wk-settings.php';
 		new Settings();
 
@@ -68,7 +71,7 @@ final class Plugin {
 		$elements_manager->add_category(
 			'web-kit',
 			[
-				'title' => __( 'Web Kit', 'web-kit' ),
+				'title' => esc_html__( 'Web Kit', 'web-kit' ),
 				'icon'  => 'fa fa-plug',
 			]
 		);
@@ -86,6 +89,7 @@ final class Plugin {
 			'class-wk-faq-widget.php'            => '\\WebKit\\Widgets\\Faq',
 			'class-wk-post-content-widget.php'   => '\\WebKit\\Widgets\\Post_Content',
 			'class-wk-ai-quick-links-widget.php' => '\\WebKit\\Widgets\\Ai_Quick_Links',
+			'class-wk-author-reviewer-widget.php' => '\\WebKit\\Widgets\\Author_Reviewer',
 		];
 	}
 
@@ -147,6 +151,13 @@ final class Plugin {
 		wp_register_style(
 			'wk-ai-quick-links',
 			WK_URL . 'assets/css/wk-ai-quick-links.css',
+			[],
+			WK_VERSION
+		);
+
+		wp_register_style(
+			'wk-author-reviewer',
+			WK_URL . 'assets/css/wk-author-reviewer.css',
 			[],
 			WK_VERSION
 		);

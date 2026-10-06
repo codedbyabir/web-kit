@@ -1,0 +1,159 @@
+/**
+ * Web Kit - Author & Reviewer Widget Styles
+ *
+ * Minimalist, modern layout displaying Post Author and designated Reviewer
+ * side-by-side with circular avatars, meta labels, and an elegant vertical divider.
+ *
+ * @package Web_Kit
+ */
+
+.wk-author-reviewer-wrap {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.wk-author-reviewer-wrap *,
+.wk-author-reviewer-wrap *::before,
+.wk-author-reviewer-wrap *::after {
+	box-sizing: border-box;
+}
+
+.wk-author-reviewer-inner {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 32px;
+	width: auto;
+}
+
+/* Individual Item (Author / Reviewer) */
+.wk-ar-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	position: relative;
+}
+
+/* Avatar Container */
+.wk-ar-avatar {
+	flex-shrink: 0;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f1f5f9;
+}
+
+.wk-ar-avatar a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.wk-ar-avatar img,
+.wk-ar-avatar-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	border-radius: inherit;
+}
+
+/* Info Column */
+.wk-ar-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 0;
+}
+
+/* Label ("Written By", "Reviewed By") */
+.wk-ar-label {
+	font-size: 14px;
+	line-height: 1.25;
+	font-weight: 400;
+	color: #64748b;
+	margin-bottom: 4px;
+	letter-spacing: -0.01em;
+	display: block;
+}
+
+/* Name */
+.wk-ar-name {
+	font-size: 19px;
+	line-height: 1.25;
+	font-weight: 700;
+	color: #0f172a;
+	letter-spacing: -0.02em;
+	display: block;
+}
+
+.wk-ar-name a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.wk-ar-name a:hover {
+	color: #2563eb;
+}
+
+/* Divider Line */
+.wk-ar-divider {
+	width: 1px;
+	height: 36px;
+	background-color: #e2e8f0;
+	flex-shrink: 0;
+	display: block;
+	align-self: center;
+}
+
+/* Direction Variants */
+.wk-author-reviewer-wrap.layout-stacked .wk-author-reviewer-inner {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.wk-author-reviewer-wrap.layout-stacked .wk-ar-divider {
+	width: 100%;
+	height: 1px;
+	max-width: 200px;
+}
+
+/* Alignment Helpers */
+.wk-author-reviewer-wrap.align-center .wk-author-reviewer-inner {
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+}
+
+.wk-author-reviewer-wrap.align-right .wk-author-reviewer-inner {
+	margin-left: auto;
+	margin-right: 0;
+	justify-content: flex-end;
+}
+
+.wk-author-reviewer-wrap.align-space-between .wk-author-reviewer-inner {
+	width: 100%;
+	justify-content: space-between;
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+	.wk-author-reviewer-inner {
+		gap: 20px;
+	}
+
+	.wk-ar-avatar {
+		width: 44px;
+		height: 44px;
+	}
+
+	.wk-ar-name {
+		font-size: 17px;
+	}
+}

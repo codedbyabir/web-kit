@@ -39,7 +39,7 @@ class Faq_Metabox {
 
 		add_meta_box(
 			'wk_faq_metabox',
-			__( 'FAQs', 'web-kit' ),
+			esc_html__( 'FAQs', 'web-kit' ),
 			[ $this, 'render' ],
 			$post_type,
 			'normal',
@@ -79,8 +79,8 @@ class Faq_Metabox {
 			'wk-faq-admin',
 			'wkFaqAdminL10n',
 			[
-				'newFaqLabel'    => __( 'New FAQ', 'web-kit' ),
-				'confirmRemove'  => __( 'Remove this FAQ?', 'web-kit' ),
+				'newFaqLabel'    => esc_html__( 'New FAQ', 'web-kit' ),
+				'confirmRemove'  => esc_html__( 'Remove this FAQ?', 'web-kit' ),
 			]
 		);
 	}
@@ -135,7 +135,7 @@ class Faq_Metabox {
 	private function render_row( $index, array $item ) {
 		$question = isset( $item['question'] ) ? $item['question'] : '';
 		$answer   = isset( $item['answer'] ) ? $item['answer'] : '';
-		$title    = '' !== $question ? $question : __( 'New FAQ', 'web-kit' );
+		$title    = '' !== $question ? $question : esc_html__( 'New FAQ', 'web-kit' );
 		?>
 		<div class="wk-faq-row">
 			<div class="wk-faq-row-header">

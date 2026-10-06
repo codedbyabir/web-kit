@@ -35,7 +35,7 @@ class Post_Content extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Web Kit Post Content', 'web-kit' );
+		return esc_html__( 'Web Kit Post Content', 'web-kit' );
 	}
 
 	public function get_icon() {
@@ -62,7 +62,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_content',
 			[
-				'label' => __( 'Post Content', 'web-kit' ),
+				'label' => esc_html__( 'Post Content', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -70,12 +70,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_content_source',
 			[
-				'label'   => __( 'Content Source', 'web-kit' ),
+				'label'   => esc_html__( 'Content Source', 'web-kit' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'current_post' => __( 'Current Post (Default)', 'web-kit' ),
-					'sample'       => __( 'Preview Sample Gutenberg Content', 'web-kit' ),
-					'custom'       => __( 'Custom Content', 'web-kit' ),
+					'current_post' => esc_html__( 'Current Post (Default)', 'web-kit' ),
+					'sample'       => esc_html__( 'Preview Sample Gutenberg Content', 'web-kit' ),
+					'custom'       => esc_html__( 'Custom Content', 'web-kit' ),
 				],
 				'default' => 'current_post',
 			]
@@ -84,11 +84,11 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_preview_sample_fallback',
 			[
-				'label'        => __( 'Sample Content in Editor', 'web-kit' ),
+				'label'        => esc_html__( 'Sample Content in Editor', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-				'description'  => __( 'Shows rich Gutenberg sample elements (headings, tables, lists, images) in the Elementor editor if current post has no content.', 'web-kit' ),
+				'description'  => esc_html__( 'Shows rich Gutenberg sample elements (headings, tables, lists, images) in the Elementor editor if current post has no content.', 'web-kit' ),
 				'condition'    => [ 'wk_pc_content_source' => 'current_post' ],
 			]
 		);
@@ -96,9 +96,9 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_custom_content',
 			[
-				'label'       => __( 'Custom Content', 'web-kit' ),
+				'label'       => esc_html__( 'Custom Content', 'web-kit' ),
 				'type'        => Controls_Manager::WYSIWYG,
-				'default'     => __( '<p>Enter your custom post content here.</p>', 'web-kit' ),
+				'default'     => esc_html__( '<p>Enter your custom post content here.</p>', 'web-kit' ),
 				'condition'   => [ 'wk_pc_content_source' => 'custom' ],
 				'label_block' => true,
 			]
@@ -107,22 +107,22 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_responsive_scroll',
 			[
-				'label'        => __( 'Responsive Table Scroll', 'web-kit' ),
+				'label'        => esc_html__( 'Responsive Table Scroll', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-				'description'  => __( 'Enables smooth horizontal scrolling for wide tables on smaller mobile screens.', 'web-kit' ),
+				'description'  => esc_html__( 'Enables smooth horizontal scrolling for wide tables on smaller mobile screens.', 'web-kit' ),
 			]
 		);
 
 		$this->add_control(
 			'wk_pc_table_header_sticky',
 			[
-				'label'        => __( 'Sticky Table Header', 'web-kit' ),
+				'label'        => esc_html__( 'Sticky Table Header', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
-				'description'  => __( 'Keeps the header row visible at the top during scrolling.', 'web-kit' ),
+				'description'  => esc_html__( 'Keeps the header row visible at the top during scrolling.', 'web-kit' ),
 			]
 		);
 
@@ -134,7 +134,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_paragraph',
 			[
-				'label' => __( 'Paragraph & Body', 'web-kit' ),
+				'label' => esc_html__( 'Paragraph & Body', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -142,7 +142,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_body_text_color',
 			[
-				'label'     => __( 'Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#334155',
 				'selectors' => [
@@ -162,13 +162,13 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_paragraph_align',
 			[
-				'label'     => __( 'Text Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Text Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'    => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center'  => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'   => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-					'justify' => [ 'title' => __( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
+					'left'    => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center'  => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'   => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'justify' => [ 'title' => esc_html__( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content p' => 'text-align: {{VALUE}};',
@@ -179,7 +179,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_paragraph_margin',
 			[
-				'label'      => __( 'Paragraph Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Paragraph Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -191,7 +191,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_paragraph_padding',
 			[
-				'label'      => __( 'Paragraph Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Paragraph Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -203,7 +203,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_paragraph_spacing',
 			[
-				'label'      => __( 'Spacing Below Paragraph', 'web-kit' ),
+				'label'      => esc_html__( 'Spacing Below Paragraph', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
@@ -217,7 +217,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_heading_links',
 			[
-				'label'     => __( 'Inline Links', 'web-kit' ),
+				'label'     => esc_html__( 'Inline Links', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -227,13 +227,13 @@ class Post_Content extends Widget_Base {
 
 		$this->start_controls_tab(
 			'wk_pc_tab_links_normal',
-			[ 'label' => __( 'Normal', 'web-kit' ) ]
+			[ 'label' => esc_html__( 'Normal', 'web-kit' ) ]
 		);
 
 		$this->add_control(
 			'wk_pc_link_color',
 			[
-				'label'     => __( 'Link Color', 'web-kit' ),
+				'label'     => esc_html__( 'Link Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2563eb',
 				'selectors' => [
@@ -245,12 +245,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_link_decoration',
 			[
-				'label'     => __( 'Text Decoration', 'web-kit' ),
+				'label'     => esc_html__( 'Text Decoration', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''          => __( 'Default', 'web-kit' ),
-					'none'      => __( 'None', 'web-kit' ),
-					'underline' => __( 'Underline', 'web-kit' ),
+					''          => esc_html__( 'Default', 'web-kit' ),
+					'none'      => esc_html__( 'None', 'web-kit' ),
+					'underline' => esc_html__( 'Underline', 'web-kit' ),
 				],
 				'default'   => 'underline',
 				'selectors' => [
@@ -262,10 +262,10 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_link_font_weight',
 			[
-				'label'     => __( 'Font Weight', 'web-kit' ),
+				'label'     => esc_html__( 'Font Weight', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''    => __( 'Inherit', 'web-kit' ),
+					''    => esc_html__( 'Inherit', 'web-kit' ),
 					'400' => '400',
 					'500' => '500',
 					'600' => '600',
@@ -281,13 +281,13 @@ class Post_Content extends Widget_Base {
 
 		$this->start_controls_tab(
 			'wk_pc_tab_links_hover',
-			[ 'label' => __( 'Hover', 'web-kit' ) ]
+			[ 'label' => esc_html__( 'Hover', 'web-kit' ) ]
 		);
 
 		$this->add_control(
 			'wk_pc_link_hover_color',
 			[
-				'label'     => __( 'Hover Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1d4ed8',
 				'selectors' => [
@@ -299,12 +299,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_link_hover_decoration',
 			[
-				'label'     => __( 'Hover Decoration', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Decoration', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''          => __( 'Default', 'web-kit' ),
-					'none'      => __( 'None', 'web-kit' ),
-					'underline' => __( 'Underline', 'web-kit' ),
+					''          => esc_html__( 'Default', 'web-kit' ),
+					'none'      => esc_html__( 'None', 'web-kit' ),
+					'underline' => esc_html__( 'Underline', 'web-kit' ),
 				],
 				'default'   => 'underline',
 				'selectors' => [
@@ -320,7 +320,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_heading_drop_cap',
 			[
-				'label'     => __( 'Drop Cap', 'web-kit' ),
+				'label'     => esc_html__( 'Drop Cap', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -329,7 +329,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_drop_cap_color',
 			[
-				'label'     => __( 'Drop Cap Color', 'web-kit' ),
+				'label'     => esc_html__( 'Drop Cap Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content .has-drop-cap:not(:focus):first-letter' => 'color: {{VALUE}};',
@@ -340,7 +340,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_drop_cap_size',
 			[
-				'label'      => __( 'Drop Cap Font Size', 'web-kit' ),
+				'label'      => esc_html__( 'Drop Cap Font Size', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'range'      => [ 'px' => [ 'min' => 20, 'max' => 100 ] ],
@@ -358,7 +358,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_headings',
 			[
-				'label' => __( 'Headings (H1 – H6)', 'web-kit' ),
+				'label' => esc_html__( 'Headings (H1 – H6)', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -366,7 +366,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_headings_global_heading',
 			[
-				'label' => __( 'All Headings (Global)', 'web-kit' ),
+				'label' => esc_html__( 'All Headings (Global)', 'web-kit' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -374,7 +374,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_headings_color',
 			[
-				'label'     => __( 'Headings Color', 'web-kit' ),
+				'label'     => esc_html__( 'Headings Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0f172a',
 				'selectors' => [
@@ -394,13 +394,13 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_headings_align',
 			[
-				'label'     => __( 'Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'    => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center'  => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'   => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-					'justify' => [ 'title' => __( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
+					'left'    => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center'  => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'   => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'justify' => [ 'title' => esc_html__( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content h1, {{WRAPPER}} .wk-post-content h2, {{WRAPPER}} .wk-post-content h3, {{WRAPPER}} .wk-post-content h4, {{WRAPPER}} .wk-post-content h5, {{WRAPPER}} .wk-post-content h6' => 'text-align: {{VALUE}};',
@@ -411,7 +411,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_headings_margin',
 			[
-				'label'      => __( 'Headings Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Headings Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -423,7 +423,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_headings_padding',
 			[
-				'label'      => __( 'Headings Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Headings Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -436,12 +436,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_individual_headings',
 			[
-				'label'        => __( 'Customize Individual Headings', 'web-kit' ),
+				'label'        => esc_html__( 'Customize Individual Headings', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
 				'separator'    => 'before',
-				'description'  => __( 'Fine-tune colors, typography, margins, and paddings for H1 through H6 independently.', 'web-kit' ),
+				'description'  => esc_html__( 'Fine-tune colors, typography, margins, and paddings for H1 through H6 independently.', 'web-kit' ),
 			]
 		);
 
@@ -453,7 +453,7 @@ class Post_Content extends Widget_Base {
 				"wk_pc_{$tag}_heading",
 				[
 					/* translators: %d: heading level */
-					'label'     => sprintf( __( 'Heading %d (H%d)', 'web-kit' ), $h, $h ),
+					'label'     => sprintf( esc_html__( 'Heading %d (H%d)', 'web-kit' ), $h, $h ),
 					'type'      => Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => [ 'wk_pc_individual_headings' => 'yes' ],
@@ -463,7 +463,7 @@ class Post_Content extends Widget_Base {
 			$this->add_control(
 				"wk_pc_{$tag}_color",
 				[
-					'label'     => __( 'Color', 'web-kit' ),
+					'label'     => esc_html__( 'Color', 'web-kit' ),
 					'type'      => Controls_Manager::COLOR,
 					'condition' => [ 'wk_pc_individual_headings' => 'yes' ],
 					'selectors' => [
@@ -484,13 +484,13 @@ class Post_Content extends Widget_Base {
 			$this->add_responsive_control(
 				"wk_pc_{$tag}_align",
 				[
-					'label'     => __( 'Alignment', 'web-kit' ),
+					'label'     => esc_html__( 'Alignment', 'web-kit' ),
 					'type'      => Controls_Manager::CHOOSE,
 					'options'   => [
-						'left'    => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-						'center'  => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-						'right'   => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-						'justify' => [ 'title' => __( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
+						'left'    => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+						'center'  => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+						'right'   => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+						'justify' => [ 'title' => esc_html__( 'Justified', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
 					],
 					'condition' => [ 'wk_pc_individual_headings' => 'yes' ],
 					'selectors' => [
@@ -502,7 +502,7 @@ class Post_Content extends Widget_Base {
 			$this->add_responsive_control(
 				"wk_pc_{$tag}_margin",
 				[
-					'label'      => __( 'Margin', 'web-kit' ),
+					'label'      => esc_html__( 'Margin', 'web-kit' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em', 'rem', '%' ],
 					'condition'  => [ 'wk_pc_individual_headings' => 'yes' ],
@@ -515,7 +515,7 @@ class Post_Content extends Widget_Base {
 			$this->add_responsive_control(
 				"wk_pc_{$tag}_padding",
 				[
-					'label'      => __( 'Padding', 'web-kit' ),
+					'label'      => esc_html__( 'Padding', 'web-kit' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em', 'rem', '%' ],
 					'condition'  => [ 'wk_pc_individual_headings' => 'yes' ],
@@ -534,7 +534,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_images',
 			[
-				'label' => __( 'Images', 'web-kit' ),
+				'label' => esc_html__( 'Images', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -542,12 +542,12 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_image_align',
 			[
-				'label'     => __( 'Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content figure.wp-block-image, {{WRAPPER}} .wk-post-content .wp-caption' => 'text-align: {{VALUE}};',
@@ -559,7 +559,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_image_max_width',
 			[
-				'label'      => __( 'Max Width', 'web-kit' ),
+				'label'      => esc_html__( 'Max Width', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px' ],
 				'range'      => [
@@ -583,7 +583,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_image_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors'  => [
@@ -603,7 +603,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_image_margin',
 			[
-				'label'      => __( 'Image Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Image Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -615,7 +615,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_image_padding',
 			[
-				'label'      => __( 'Image Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Image Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -628,7 +628,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_heading_caption',
 			[
-				'label'     => __( 'Caption', 'web-kit' ),
+				'label'     => esc_html__( 'Caption', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -637,7 +637,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_caption_color',
 			[
-				'label'     => __( 'Caption Color', 'web-kit' ),
+				'label'     => esc_html__( 'Caption Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#64748b',
 				'selectors' => [
@@ -657,12 +657,12 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_caption_align',
 			[
-				'label'     => __( 'Caption Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Caption Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content figcaption, {{WRAPPER}} .wk-post-content .wp-caption-text' => 'text-align: {{VALUE}};',
@@ -673,11 +673,202 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_caption_margin',
 			[
-				'label'      => __( 'Caption Spacing (Margin)', 'web-kit' ),
+				'label'      => esc_html__( 'Caption Spacing (Margin)', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
 					'{{WRAPPER}} .wk-post-content figcaption, {{WRAPPER}} .wk-post-content .wp-caption-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		/* =========================================================
+		 * STYLE TAB — VIDEOS & EMBEDS
+		 * ========================================================= */
+		$this->start_controls_section(
+			'wk_pc_section_style_videos',
+			[
+				'label' => esc_html__( 'Videos & Embeds', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_align',
+			[
+				'label'     => esc_html__( 'Alignment', 'web-kit' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video, {{WRAPPER}} .wk-post-content figure.wp-block-embed, {{WRAPPER}} .wk-post-content figure.is-type-video' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'display: inline-block;',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_width',
+			[
+				'label'      => esc_html__( 'Width', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ '%', 'px', 'vw' ],
+				'range'      => [
+					'%'  => [ 'min' => 10, 'max' => 100 ],
+					'px' => [ 'min' => 100, 'max' => 1600 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_max_width',
+			[
+				'label'      => esc_html__( 'Max Width', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ '%', 'px', 'vw' ],
+				'range'      => [
+					'%'  => [ 'min' => 10, 'max' => 100 ],
+					'px' => [ 'min' => 200, 'max' => 1600 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video, {{WRAPPER}} .wk-post-content figure.wp-block-embed, {{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'max-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'wk_pc_video_aspect_ratio',
+			[
+				'label'   => esc_html__( 'Aspect Ratio', 'web-kit' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					''       => esc_html__( 'Default / Native', 'web-kit' ),
+					'16 / 9' => esc_html__( '16:9 (Widescreen)', 'web-kit' ),
+					'4 / 3'  => esc_html__( '4:3 (Standard)', 'web-kit' ),
+					'1 / 1'  => esc_html__( '1:1 (Square)', 'web-kit' ),
+					'9 / 16' => esc_html__( '9:16 (Vertical / Reels)', 'web-kit' ),
+					'21 / 9' => esc_html__( '21:9 (Ultrawide)', 'web-kit' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed iframe, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'aspect-ratio: {{VALUE}}; width: 100%; height: auto;',
+				],
+			]
+		);
+
+		$this->add_control(
+			'wk_pc_video_bg_color',
+			[
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'wk_pc_video_border',
+				'selector' => '{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed iframe, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video',
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed iframe, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'wk_pc_video_box_shadow',
+				'selector' => '{{WRAPPER}} .wk-post-content figure.wp-block-video video, {{WRAPPER}} .wk-post-content figure.wp-block-embed iframe, {{WRAPPER}} .wk-post-content figure.wp-block-embed .wp-block-embed__wrapper, {{WRAPPER}} .wk-post-content video',
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video, {{WRAPPER}} .wk-post-content figure.wp-block-embed, {{WRAPPER}} .wk-post-content video' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		/* Video Caption */
+		$this->add_control(
+			'wk_pc_heading_video_caption',
+			[
+				'label'     => esc_html__( 'Caption', 'web-kit' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'wk_pc_video_caption_color',
+			[
+				'label'     => esc_html__( 'Caption Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#64748b',
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video figcaption, {{WRAPPER}} .wk-post-content figure.wp-block-embed figcaption' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'wk_pc_video_caption_typography',
+				'selector' => '{{WRAPPER}} .wk-post-content figure.wp-block-video figcaption, {{WRAPPER}} .wk-post-content figure.wp-block-embed figcaption',
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_caption_align',
+			[
+				'label'     => esc_html__( 'Caption Alignment', 'web-kit' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video figcaption, {{WRAPPER}} .wk-post-content figure.wp-block-embed figcaption' => 'text-align: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_video_caption_margin',
+			[
+				'label'      => esc_html__( 'Caption Spacing (Margin)', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content figure.wp-block-video figcaption, {{WRAPPER}} .wk-post-content figure.wp-block-embed figcaption' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -690,7 +881,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_lists',
 			[
-				'label' => __( 'Lists (UL / OL)', 'web-kit' ),
+				'label' => esc_html__( 'Lists (UL / OL)', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -698,7 +889,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_list_marker_color',
 			[
-				'label'     => __( 'Bullet / Number Marker Color', 'web-kit' ),
+				'label'     => esc_html__( 'Bullet / Number Marker Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2563eb',
 				'selectors' => [
@@ -707,16 +898,32 @@ class Post_Content extends Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'wk_pc_list_marker_size',
+			[
+				'label'      => esc_html__( 'Marker Size', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'range'      => [
+					'px' => [ 'min' => 6, 'max' => 60 ],
+					'em' => [ 'min' => 0.4, 'max' => 3, 'step' => 0.05 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content li::marker, {{WRAPPER}} .wk-post-content ul li::marker, {{WRAPPER}} .wk-post-content ol li::marker' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->add_control(
 			'wk_pc_ul_style_type',
 			[
-				'label'     => __( 'Unordered List Marker Style', 'web-kit' ),
+				'label'     => esc_html__( 'Unordered List Marker Style', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'disc'   => __( 'Disc (Default)', 'web-kit' ),
-					'circle' => __( 'Circle', 'web-kit' ),
-					'square' => __( 'Square', 'web-kit' ),
-					'none'   => __( 'None', 'web-kit' ),
+					'disc'   => esc_html__( 'Disc (Default)', 'web-kit' ),
+					'circle' => esc_html__( 'Circle', 'web-kit' ),
+					'square' => esc_html__( 'Square', 'web-kit' ),
+					'none'   => esc_html__( 'None', 'web-kit' ),
 				],
 				'default'   => 'disc',
 				'selectors' => [
@@ -725,19 +932,35 @@ class Post_Content extends Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'wk_pc_ul_marker_size',
+			[
+				'label'      => esc_html__( 'Bullet Size (UL Override)', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'range'      => [
+					'px' => [ 'min' => 6, 'max' => 60 ],
+					'em' => [ 'min' => 0.4, 'max' => 3, 'step' => 0.05 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content ul li::marker' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->add_control(
 			'wk_pc_ol_style_type',
 			[
-				'label'     => __( 'Ordered List Numbering Style', 'web-kit' ),
+				'label'     => esc_html__( 'Ordered List Numbering Style', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'decimal'              => __( 'Decimal (1, 2, 3)', 'web-kit' ),
-					'decimal-leading-zero' => __( 'Leading Zero (01, 02, 03)', 'web-kit' ),
-					'lower-roman'          => __( 'Lower Roman (i, ii, iii)', 'web-kit' ),
-					'upper-roman'          => __( 'Upper Roman (I, II, III)', 'web-kit' ),
-					'lower-alpha'          => __( 'Lower Alpha (a, b, c)', 'web-kit' ),
-					'upper-alpha'          => __( 'Upper Alpha (A, B, C)', 'web-kit' ),
-					'none'                 => __( 'None', 'web-kit' ),
+					'decimal'              => esc_html__( 'Decimal (1, 2, 3)', 'web-kit' ),
+					'decimal-leading-zero' => esc_html__( 'Leading Zero (01, 02, 03)', 'web-kit' ),
+					'lower-roman'          => esc_html__( 'Lower Roman (i, ii, iii)', 'web-kit' ),
+					'upper-roman'          => esc_html__( 'Upper Roman (I, II, III)', 'web-kit' ),
+					'lower-alpha'          => esc_html__( 'Lower Alpha (a, b, c)', 'web-kit' ),
+					'upper-alpha'          => esc_html__( 'Upper Alpha (A, B, C)', 'web-kit' ),
+					'none'                 => esc_html__( 'None', 'web-kit' ),
 				],
 				'default'   => 'decimal',
 				'selectors' => [
@@ -746,10 +969,26 @@ class Post_Content extends Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'wk_pc_ol_marker_size',
+			[
+				'label'      => esc_html__( 'Number Size (OL Override)', 'web-kit' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'range'      => [
+					'px' => [ 'min' => 6, 'max' => 60 ],
+					'em' => [ 'min' => 0.4, 'max' => 3, 'step' => 0.05 ],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content ol li::marker' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->add_control(
 			'wk_pc_list_text_color',
 			[
-				'label'     => __( 'List Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'List Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#334155',
 				'selectors' => [
@@ -769,7 +1008,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_list_item_spacing',
 			[
-				'label'      => __( 'Space Between Items', 'web-kit' ),
+				'label'      => esc_html__( 'Space Between Items', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
@@ -783,7 +1022,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_list_padding_left',
 			[
-				'label'      => __( 'List Indentation (Padding Left)', 'web-kit' ),
+				'label'      => esc_html__( 'List Indentation (Padding Left)', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 80 ] ],
@@ -797,7 +1036,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_list_margin',
 			[
-				'label'      => __( 'List Margin', 'web-kit' ),
+				'label'      => esc_html__( 'List Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -809,7 +1048,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_nested_list_indent',
 			[
-				'label'      => __( 'Nested List Indent', 'web-kit' ),
+				'label'      => esc_html__( 'Nested List Indent', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 60 ] ],
@@ -828,7 +1067,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_table',
 			[
-				'label' => __( 'Tables (Complete Suite)', 'web-kit' ),
+				'label' => esc_html__( 'Tables (Complete Suite)', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -837,7 +1076,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_general',
 			[
-				'label' => __( 'General Table & Container', 'web-kit' ),
+				'label' => esc_html__( 'General Table & Container', 'web-kit' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -845,11 +1084,11 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_layout',
 			[
-				'label'     => __( 'Table Layout', 'web-kit' ),
+				'label'     => esc_html__( 'Table Layout', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'auto'  => __( 'Auto (fits content)', 'web-kit' ),
-					'fixed' => __( 'Fixed (equal column distribution)', 'web-kit' ),
+					'auto'  => esc_html__( 'Auto (fits content)', 'web-kit' ),
+					'fixed' => esc_html__( 'Fixed (equal column distribution)', 'web-kit' ),
 				],
 				'default'   => 'auto',
 				'selectors' => [
@@ -861,7 +1100,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_width',
 			[
-				'label'      => __( 'Table Width', 'web-kit' ),
+				'label'      => esc_html__( 'Table Width', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px', 'vw' ],
 				'range'      => [
@@ -878,7 +1117,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_max_width',
 			[
-				'label'      => __( 'Max Width', 'web-kit' ),
+				'label'      => esc_html__( 'Max Width', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px' ],
 				'range'      => [
@@ -894,12 +1133,12 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_align',
 			[
-				'label'     => __( 'Table Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Table Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'default'   => 'center',
 				'selectors_dictionary' => [
@@ -916,7 +1155,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_bg_color',
 			[
-				'label'     => __( 'Table Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Table Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -928,7 +1167,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_margin',
 			[
-				'label'      => __( 'Table Outer Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Table Outer Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
@@ -948,7 +1187,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_border_radius',
 			[
-				'label'      => __( 'Table Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Table Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors'  => [
@@ -968,11 +1207,11 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_border_collapse',
 			[
-				'label'     => __( 'Border Collapse', 'web-kit' ),
+				'label'     => esc_html__( 'Border Collapse', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'collapse' => __( 'Collapse (Merged borders)', 'web-kit' ),
-					'separate' => __( 'Separate (Cell spacing enabled)', 'web-kit' ),
+					'collapse' => esc_html__( 'Collapse (Merged borders)', 'web-kit' ),
+					'separate' => esc_html__( 'Separate (Cell spacing enabled)', 'web-kit' ),
 				],
 				'default'   => 'collapse',
 				'selectors' => [
@@ -984,7 +1223,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_border_spacing',
 			[
-				'label'      => __( 'Border Spacing', 'web-kit' ),
+				'label'      => esc_html__( 'Border Spacing', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 30 ] ],
@@ -1000,7 +1239,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_th',
 			[
-				'label'     => __( 'Header Row (TH)', 'web-kit' ),
+				'label'     => esc_html__( 'Header Row (TH)', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1009,7 +1248,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_th_bg_color',
 			[
-				'label'     => __( 'Header Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Header Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0f172a',
 				'selectors' => [
@@ -1021,7 +1260,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_th_text_color',
 			[
-				'label'     => __( 'Header Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Header Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1041,13 +1280,13 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_th_align',
 			[
-				'label'     => __( 'Header Text Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Header Text Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'    => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center'  => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'   => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-					'justify' => [ 'title' => __( 'Justify', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
+					'left'    => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center'  => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'   => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'justify' => [ 'title' => esc_html__( 'Justify', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content table thead th' => 'text-align: {{VALUE}};',
@@ -1058,12 +1297,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_th_valign',
 			[
-				'label'     => __( 'Vertical Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Vertical Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'top'    => [ 'title' => __( 'Top', 'web-kit' ), 'icon' => 'eicon-v-align-top' ],
-					'middle' => [ 'title' => __( 'Middle', 'web-kit' ), 'icon' => 'eicon-v-align-middle' ],
-					'bottom' => [ 'title' => __( 'Bottom', 'web-kit' ), 'icon' => 'eicon-v-align-bottom' ],
+					'top'    => [ 'title' => esc_html__( 'Top', 'web-kit' ), 'icon' => 'eicon-v-align-top' ],
+					'middle' => [ 'title' => esc_html__( 'Middle', 'web-kit' ), 'icon' => 'eicon-v-align-middle' ],
+					'bottom' => [ 'title' => esc_html__( 'Bottom', 'web-kit' ), 'icon' => 'eicon-v-align-bottom' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content table thead th' => 'vertical-align: {{VALUE}};',
@@ -1074,7 +1313,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_th_padding',
 			[
-				'label'      => __( 'Header Cell Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Header Cell Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'default'    => [
@@ -1103,7 +1342,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_td',
 			[
-				'label'     => __( 'Body Cells (TD)', 'web-kit' ),
+				'label'     => esc_html__( 'Body Cells (TD)', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1112,7 +1351,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_td_bg_color',
 			[
-				'label'     => __( 'Cell Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Cell Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1124,7 +1363,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_td_text_color',
 			[
-				'label'     => __( 'Cell Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Cell Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#334155',
 				'selectors' => [
@@ -1144,13 +1383,13 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_td_align',
 			[
-				'label'     => __( 'Cell Text Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Cell Text Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'    => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center'  => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'   => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
-					'justify' => [ 'title' => __( 'Justify', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
+					'left'    => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center'  => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'   => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'justify' => [ 'title' => esc_html__( 'Justify', 'web-kit' ), 'icon' => 'eicon-text-align-justify' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content table tbody td, {{WRAPPER}} .wk-post-content table td' => 'text-align: {{VALUE}};',
@@ -1161,12 +1400,12 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_td_valign',
 			[
-				'label'     => __( 'Vertical Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Vertical Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'top'    => [ 'title' => __( 'Top', 'web-kit' ), 'icon' => 'eicon-v-align-top' ],
-					'middle' => [ 'title' => __( 'Middle', 'web-kit' ), 'icon' => 'eicon-v-align-middle' ],
-					'bottom' => [ 'title' => __( 'Bottom', 'web-kit' ), 'icon' => 'eicon-v-align-bottom' ],
+					'top'    => [ 'title' => esc_html__( 'Top', 'web-kit' ), 'icon' => 'eicon-v-align-top' ],
+					'middle' => [ 'title' => esc_html__( 'Middle', 'web-kit' ), 'icon' => 'eicon-v-align-middle' ],
+					'bottom' => [ 'title' => esc_html__( 'Bottom', 'web-kit' ), 'icon' => 'eicon-v-align-bottom' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content table tbody td, {{WRAPPER}} .wk-post-content table td' => 'vertical-align: {{VALUE}};',
@@ -1177,7 +1416,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_td_padding',
 			[
-				'label'      => __( 'Cell Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Cell Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'default'    => [
@@ -1205,7 +1444,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_td_link_color',
 			[
-				'label'     => __( 'Cell Link Color', 'web-kit' ),
+				'label'     => esc_html__( 'Cell Link Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2563eb',
 				'selectors' => [
@@ -1217,7 +1456,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_td_link_hover_color',
 			[
-				'label'     => __( 'Cell Link Hover Color', 'web-kit' ),
+				'label'     => esc_html__( 'Cell Link Hover Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1d4ed8',
 				'selectors' => [
@@ -1230,7 +1469,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_stripes',
 			[
-				'label'     => __( 'Alternating / Striped Rows', 'web-kit' ),
+				'label'     => esc_html__( 'Alternating / Striped Rows', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1239,7 +1478,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_striped_enable',
 			[
-				'label'        => __( 'Enable Alternating Rows', 'web-kit' ),
+				'label'        => esc_html__( 'Enable Alternating Rows', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -1249,7 +1488,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_striped_even_bg',
 			[
-				'label'     => __( 'Even Row Background', 'web-kit' ),
+				'label'     => esc_html__( 'Even Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F8FAFC',
 				'condition' => [ 'wk_pc_table_striped_enable' => 'yes' ],
@@ -1262,7 +1501,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_striped_even_color',
 			[
-				'label'     => __( 'Even Row Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Even Row Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => [ 'wk_pc_table_striped_enable' => 'yes' ],
 				'selectors' => [
@@ -1274,7 +1513,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_striped_odd_bg',
 			[
-				'label'     => __( 'Odd Row Background', 'web-kit' ),
+				'label'     => esc_html__( 'Odd Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'condition' => [ 'wk_pc_table_striped_enable' => 'yes' ],
@@ -1287,7 +1526,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_striped_odd_color',
 			[
-				'label'     => __( 'Odd Row Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Odd Row Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => [ 'wk_pc_table_striped_enable' => 'yes' ],
 				'selectors' => [
@@ -1300,7 +1539,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_hover',
 			[
-				'label'     => __( 'Row Hover State', 'web-kit' ),
+				'label'     => esc_html__( 'Row Hover State', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1309,7 +1548,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_hover_enable',
 			[
-				'label'        => __( 'Enable Row Hover Effect', 'web-kit' ),
+				'label'        => esc_html__( 'Enable Row Hover Effect', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -1319,7 +1558,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_hover_bg',
 			[
-				'label'     => __( 'Hover Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#EFF6FF',
 				'condition' => [ 'wk_pc_table_hover_enable' => 'yes' ],
@@ -1332,7 +1571,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_hover_color',
 			[
-				'label'     => __( 'Hover Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => [ 'wk_pc_table_hover_enable' => 'yes' ],
 				'selectors' => [
@@ -1344,7 +1583,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_hover_transition',
 			[
-				'label'      => __( 'Hover Transition (ms)', 'web-kit' ),
+				'label'      => esc_html__( 'Hover Transition (ms)', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 600 ] ],
 				'default'    => [ 'size' => 150, 'unit' => 'px' ],
@@ -1359,7 +1598,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_first_col',
 			[
-				'label'     => __( 'First Column (Accent Column)', 'web-kit' ),
+				'label'     => esc_html__( 'First Column (Accent Column)', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1368,18 +1607,18 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_first_col_enable',
 			[
-				'label'        => __( 'Custom First Column Style', 'web-kit' ),
+				'label'        => esc_html__( 'Custom First Column Style', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
-				'description'  => __( 'Highlights the first column (e.g. feature names or row headers in comparison tables).', 'web-kit' ),
+				'description'  => esc_html__( 'Highlights the first column (e.g. feature names or row headers in comparison tables).', 'web-kit' ),
 			]
 		);
 
 		$this->add_control(
 			'wk_pc_table_first_col_bg',
 			[
-				'label'     => __( 'First Column Background', 'web-kit' ),
+				'label'     => esc_html__( 'First Column Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => [ 'wk_pc_table_first_col_enable' => 'yes' ],
 				'selectors' => [
@@ -1391,7 +1630,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_first_col_color',
 			[
-				'label'     => __( 'First Column Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'First Column Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0f172a',
 				'condition' => [ 'wk_pc_table_first_col_enable' => 'yes' ],
@@ -1404,10 +1643,10 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_first_col_font_weight',
 			[
-				'label'     => __( 'First Column Font Weight', 'web-kit' ),
+				'label'     => esc_html__( 'First Column Font Weight', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''    => __( 'Default', 'web-kit' ),
+					''    => esc_html__( 'Default', 'web-kit' ),
 					'500' => '500',
 					'600' => '600 (Semi-bold)',
 					'700' => '700 (Bold)',
@@ -1423,12 +1662,12 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_first_col_align',
 			[
-				'label'     => __( 'First Column Text Align', 'web-kit' ),
+				'label'     => esc_html__( 'First Column Text Align', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'condition' => [ 'wk_pc_table_first_col_enable' => 'yes' ],
 				'selectors' => [
@@ -1441,7 +1680,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_tfoot',
 			[
-				'label'     => __( 'Table Footer (TFOOT)', 'web-kit' ),
+				'label'     => esc_html__( 'Table Footer (TFOOT)', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1450,7 +1689,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_tfoot_bg_color',
 			[
-				'label'     => __( 'Footer Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Footer Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F1F5F9',
 				'selectors' => [
@@ -1462,7 +1701,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_tfoot_text_color',
 			[
-				'label'     => __( 'Footer Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Footer Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#475569',
 				'selectors' => [
@@ -1482,7 +1721,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_tfoot_padding',
 			[
-				'label'      => __( 'Footer Cell Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Footer Cell Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
@@ -1503,7 +1742,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_heading_caption',
 			[
-				'label'     => __( 'Table Caption', 'web-kit' ),
+				'label'     => esc_html__( 'Table Caption', 'web-kit' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1512,11 +1751,11 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_caption_side',
 			[
-				'label'     => __( 'Caption Position', 'web-kit' ),
+				'label'     => esc_html__( 'Caption Position', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'bottom' => __( 'Bottom', 'web-kit' ),
-					'top'    => __( 'Top', 'web-kit' ),
+					'bottom' => esc_html__( 'Bottom', 'web-kit' ),
+					'top'    => esc_html__( 'Top', 'web-kit' ),
 				],
 				'default'   => 'bottom',
 				'selectors' => [
@@ -1528,7 +1767,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_table_caption_color',
 			[
-				'label'     => __( 'Caption Color', 'web-kit' ),
+				'label'     => esc_html__( 'Caption Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#64748b',
 				'selectors' => [
@@ -1548,12 +1787,12 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_caption_align',
 			[
-				'label'     => __( 'Caption Alignment', 'web-kit' ),
+				'label'     => esc_html__( 'Caption Alignment', 'web-kit' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content table caption, {{WRAPPER}} .wk-post-content .wp-block-table figcaption' => 'text-align: {{VALUE}};',
@@ -1564,7 +1803,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_table_caption_padding',
 			[
-				'label'      => __( 'Caption Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Caption Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
@@ -1581,7 +1820,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_quotes',
 			[
-				'label' => __( 'Blockquotes', 'web-kit' ),
+				'label' => esc_html__( 'Blockquotes', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1589,7 +1828,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_quote_text_color',
 			[
-				'label'     => __( 'Quote Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Quote Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1e293b',
 				'selectors' => [
@@ -1609,7 +1848,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_quote_bg_color',
 			[
-				'label'     => __( 'Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F8FAFC',
 				'selectors' => [
@@ -1621,7 +1860,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_quote_border_color',
 			[
-				'label'     => __( 'Border Left Color', 'web-kit' ),
+				'label'     => esc_html__( 'Border Left Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2563eb',
 				'selectors' => [
@@ -1633,7 +1872,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_quote_border_width',
 			[
-				'label'      => __( 'Border Left Width', 'web-kit' ),
+				'label'      => esc_html__( 'Border Left Width', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 0, 'max' => 20 ] ],
@@ -1647,7 +1886,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_quote_padding',
 			[
-				'label'      => __( 'Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'default'    => [
@@ -1667,7 +1906,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_quote_margin',
 			[
-				'label'      => __( 'Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
@@ -1679,7 +1918,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_quote_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -1691,7 +1930,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_quote_cite_color',
 			[
-				'label'     => __( 'Author / Cite Color', 'web-kit' ),
+				'label'     => esc_html__( 'Author / Cite Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#64748b',
 				'separator' => 'before',
@@ -1717,7 +1956,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_code',
 			[
-				'label' => __( 'Code & Preformatted', 'web-kit' ),
+				'label' => esc_html__( 'Code & Preformatted', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1725,7 +1964,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_code_color',
 			[
-				'label'     => __( 'Code Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Code Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F8FAFC',
 				'selectors' => [
@@ -1737,7 +1976,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_code_bg_color',
 			[
-				'label'     => __( 'Code Block Background', 'web-kit' ),
+				'label'     => esc_html__( 'Code Block Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1E293B',
 				'selectors' => [
@@ -1749,7 +1988,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_inline_code_bg',
 			[
-				'label'     => __( 'Inline Code Background', 'web-kit' ),
+				'label'     => esc_html__( 'Inline Code Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F1F5F9',
 				'selectors' => [
@@ -1761,7 +2000,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_inline_code_color',
 			[
-				'label'     => __( 'Inline Code Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Inline Code Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#0F172A',
 				'selectors' => [
@@ -1789,7 +2028,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_code_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -1801,7 +2040,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_code_padding',
 			[
-				'label'      => __( 'Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
@@ -1818,7 +2057,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_separator',
 			[
-				'label' => __( 'Separator / Divider (HR)', 'web-kit' ),
+				'label' => esc_html__( 'Separator / Divider (HR)', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1826,7 +2065,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_separator_color',
 			[
-				'label'     => __( 'Divider Color', 'web-kit' ),
+				'label'     => esc_html__( 'Divider Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#E2E8F0',
 				'selectors' => [
@@ -1838,13 +2077,13 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_separator_style',
 			[
-				'label'     => __( 'Style', 'web-kit' ),
+				'label'     => esc_html__( 'Style', 'web-kit' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'solid'  => __( 'Solid', 'web-kit' ),
-					'dashed' => __( 'Dashed', 'web-kit' ),
-					'dotted' => __( 'Dotted', 'web-kit' ),
-					'double' => __( 'Double', 'web-kit' ),
+					'solid'  => esc_html__( 'Solid', 'web-kit' ),
+					'dashed' => esc_html__( 'Dashed', 'web-kit' ),
+					'dotted' => esc_html__( 'Dotted', 'web-kit' ),
+					'double' => esc_html__( 'Double', 'web-kit' ),
 				],
 				'default'   => 'solid',
 				'selectors' => [
@@ -1856,7 +2095,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_separator_thickness',
 			[
-				'label'      => __( 'Thickness', 'web-kit' ),
+				'label'      => esc_html__( 'Thickness', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'min' => 1, 'max' => 12 ] ],
@@ -1870,7 +2109,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_separator_width',
 			[
-				'label'      => __( 'Width', 'web-kit' ),
+				'label'      => esc_html__( 'Width', 'web-kit' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%', 'px' ],
 				'range'      => [
@@ -1887,7 +2126,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_separator_margin',
 			[
-				'label'      => __( 'Margin (Spacing)', 'web-kit' ),
+				'label'      => esc_html__( 'Margin (Spacing)', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'selectors'  => [
@@ -1904,7 +2143,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_buttons',
 			[
-				'label' => __( 'Gutenberg Buttons', 'web-kit' ),
+				'label' => esc_html__( 'Gutenberg Buttons', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1921,13 +2160,13 @@ class Post_Content extends Widget_Base {
 
 		$this->start_controls_tab(
 			'wk_pc_tab_btn_normal',
-			[ 'label' => __( 'Normal', 'web-kit' ) ]
+			[ 'label' => esc_html__( 'Normal', 'web-kit' ) ]
 		);
 
 		$this->add_control(
 			'wk_pc_btn_color',
 			[
-				'label'     => __( 'Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1939,7 +2178,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_btn_bg_color',
 			[
-				'label'     => __( 'Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2563EB',
 				'selectors' => [
@@ -1959,7 +2198,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_btn_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -1980,13 +2219,13 @@ class Post_Content extends Widget_Base {
 
 		$this->start_controls_tab(
 			'wk_pc_tab_btn_hover',
-			[ 'label' => __( 'Hover', 'web-kit' ) ]
+			[ 'label' => esc_html__( 'Hover', 'web-kit' ) ]
 		);
 
 		$this->add_control(
 			'wk_pc_btn_hover_color',
 			[
-				'label'     => __( 'Hover Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1998,7 +2237,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_btn_hover_bg_color',
 			[
-				'label'     => __( 'Hover Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1D4ED8',
 				'selectors' => [
@@ -2010,7 +2249,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_btn_hover_border_color',
 			[
-				'label'     => __( 'Hover Border Color', 'web-kit' ),
+				'label'     => esc_html__( 'Hover Border Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wk-post-content .wp-block-button__link:hover' => 'border-color: {{VALUE}};',
@@ -2032,7 +2271,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_btn_padding',
 			[
-				'label'      => __( 'Button Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Button Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem' ],
 				'separator'  => 'before',
@@ -2050,7 +2289,7 @@ class Post_Content extends Widget_Base {
 		$this->start_controls_section(
 			'wk_pc_section_style_highlight_box',
 			[
-				'label' => __( 'Highlight Box (.wk-highlight-box)', 'web-kit' ),
+				'label' => esc_html__( 'Highlight Box (.wk-highlight-box)', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -2058,7 +2297,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_highlight_box_bg_color',
 			[
-				'label'     => __( 'Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F8FAFC',
 				'selectors' => [
@@ -2070,7 +2309,7 @@ class Post_Content extends Widget_Base {
 		$this->add_control(
 			'wk_pc_highlight_box_text_color',
 			[
-				'label'     => __( 'Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#334155',
 				'selectors' => [
@@ -2090,7 +2329,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_highlight_box_padding',
 			[
-				'label'      => __( 'Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'default'    => [
@@ -2110,7 +2349,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_highlight_box_margin',
 			[
-				'label'      => __( 'Margin', 'web-kit' ),
+				'label'      => esc_html__( 'Margin', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'default'    => [
@@ -2138,7 +2377,7 @@ class Post_Content extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_pc_highlight_box_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'web-kit' ),
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'default'    => [
@@ -2164,6 +2403,127 @@ class Post_Content extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		/* =========================================================
+		 * STYLE TAB — CUSTOM HIGHLIGHT BOX V2 (.wk-highlight-box-v2)
+		 * ========================================================= */
+		$this->start_controls_section(
+			'wk_pc_section_style_highlight_box_v2',
+			[
+				'label' => esc_html__( 'Highlight Box V2 (.wk-highlight-box-v2)', 'web-kit' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'wk_pc_highlight_box_v2_bg_color',
+			[
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#F1F5F9',
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content .wk-highlight-box-v2' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'wk_pc_highlight_box_v2_text_color',
+			[
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#334155',
+				'selectors' => [
+					'{{WRAPPER}} .wk-post-content .wk-highlight-box-v2, {{WRAPPER}} .wk-post-content .wk-highlight-box-v2 p' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'wk_pc_highlight_box_v2_typography',
+				'selector' => '{{WRAPPER}} .wk-post-content .wk-highlight-box-v2, {{WRAPPER}} .wk-post-content .wk-highlight-box-v2 p',
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_highlight_box_v2_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'default'    => [
+					'top'      => '20',
+					'right'    => '24',
+					'bottom'   => '20',
+					'left'     => '24',
+					'unit'     => 'px',
+					'isLinked' => false,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content .wk-highlight-box-v2' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_highlight_box_v2_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'default'    => [
+					'top'      => '24',
+					'right'    => '0',
+					'bottom'   => '24',
+					'left'     => '0',
+					'unit'     => 'px',
+					'isLinked' => false,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content .wk-highlight-box-v2' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'wk_pc_highlight_box_v2_border',
+				'selector' => '{{WRAPPER}} .wk-post-content .wk-highlight-box-v2',
+			]
+		);
+
+		$this->add_responsive_control(
+			'wk_pc_highlight_box_v2_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'web-kit' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'default'    => [
+					'top'      => '8',
+					'right'    => '8',
+					'bottom'   => '8',
+					'left'     => '8',
+					'unit'     => 'px',
+					'isLinked' => true,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wk-post-content .wk-highlight-box-v2' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'wk_pc_highlight_box_v2_box_shadow',
+				'selector' => '{{WRAPPER}} .wk-post-content .wk-highlight-box-v2',
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -2184,6 +2544,13 @@ class Post_Content extends Widget_Base {
 		<figure class="wp-block-image size-large aligncenter">
 			<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000&auto=format&fit=crop&q=80" alt="Web Development Workspace" />
 			<figcaption>Sample responsive figure demonstrating border, radius, shadow, and caption styling.</figcaption>
+		</figure>
+
+		<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio aligncenter">
+			<div class="wp-block-embed__wrapper">
+				<iframe title="Sample Video Embed" width="100%" height="340" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+			<figcaption>Sample responsive video embed with customizable aspect ratio, borders, radius, shadow, and caption styling.</figcaption>
 		</figure>
 
 		<h4 class="wp-block-heading">Heading Level 4: Lists & Nesting (H4)</h4>
@@ -2264,6 +2631,11 @@ class Post_Content extends Widget_Base {
 		<div class="wk-highlight-box">
 			<h4 class="wp-block-heading" style="margin-top:0;">Pro Tip: Custom Highlight Box (.wk-highlight-box)</h4>
 			<p>Any block, group, or container in WordPress with the CSS class <code>.wk-highlight-box</code> will automatically receive these customizable padding, margin, border, background color, and border-radius styles.</p>
+		</div>
+
+		<div class="wk-highlight-box-v2">
+			<h4 class="wp-block-heading" style="margin-top:0;">Notice: Custom Highlight Box V2 (.wk-highlight-box-v2)</h4>
+			<p>Any block, group, or container in WordPress with the CSS class <code>.wk-highlight-box-v2</code> can be styled independently with its own padding, margin, borders, colors, and shadows.</p>
 		</div>
 
 		<blockquote class="wp-block-quote">

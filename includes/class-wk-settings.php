@@ -32,8 +32,8 @@ class Settings {
 
 	public function register_menu() {
 		add_menu_page(
-			__( 'Web Kit', 'web-kit' ),
-			__( 'Web Kit', 'web-kit' ),
+			esc_html__( 'Web Kit', 'web-kit' ),
+			esc_html__( 'Web Kit', 'web-kit' ),
 			'manage_options',
 			'wk-settings',
 			[ $this, 'render_page' ],
@@ -145,7 +145,7 @@ class Settings {
 		}
 		$output['faq']['terms'] = $terms;
 
-		add_settings_error( 'wk_settings', 'wk_settings_saved', __( 'Web Kit settings saved.', 'web-kit' ), 'updated' );
+		add_settings_error( 'wk_settings', 'wk_settings_saved', esc_html__( 'Web Kit settings saved.', 'web-kit' ), 'updated' );
 
 		return $output;
 	}

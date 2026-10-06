@@ -36,7 +36,7 @@ class Html_Table extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Web Kit HTML Table', 'web-kit' );
+		return esc_html__( 'Web Kit HTML Table', 'web-kit' );
 	}
 
 	public function get_icon() {
@@ -68,7 +68,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_columns',
 			[
-				'label' => __( 'Columns', 'web-kit' ),
+				'label' => esc_html__( 'Columns', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -78,9 +78,9 @@ class Html_Table extends Widget_Base {
 		$columns_repeater->add_control(
 			'column_label',
 			[
-				'label'       => __( 'Column Title', 'web-kit' ),
+				'label'       => esc_html__( 'Column Title', 'web-kit' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Column', 'web-kit' ),
+				'default'     => esc_html__( 'Column', 'web-kit' ),
 				'label_block' => true,
 			]
 		);
@@ -88,12 +88,12 @@ class Html_Table extends Widget_Base {
 		$columns_repeater->add_control(
 			'column_align',
 			[
-				'label'   => __( 'Text Align', 'web-kit' ),
+				'label'   => esc_html__( 'Text Align', 'web-kit' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => [
-					'left'   => [ 'title' => __( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
-					'center' => [ 'title' => __( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
-					'right'  => [ 'title' => __( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
+					'left'   => [ 'title' => esc_html__( 'Left', 'web-kit' ), 'icon' => 'eicon-text-align-left' ],
+					'center' => [ 'title' => esc_html__( 'Center', 'web-kit' ), 'icon' => 'eicon-text-align-center' ],
+					'right'  => [ 'title' => esc_html__( 'Right', 'web-kit' ), 'icon' => 'eicon-text-align-right' ],
 				],
 				'default' => 'center',
 				'toggle'  => false,
@@ -103,27 +103,27 @@ class Html_Table extends Widget_Base {
 		$columns_repeater->add_control(
 			'column_width',
 			[
-				'label'       => __( 'Width (%)', 'web-kit' ),
+				'label'       => esc_html__( 'Width (%)', 'web-kit' ),
 				'type'        => Controls_Manager::NUMBER,
 				'min'         => 0,
 				'max'         => 100,
-				'description' => __( 'Leave at 0 for auto/equal width.', 'web-kit' ),
+				'description' => esc_html__( 'Leave at 0 for auto/equal width.', 'web-kit' ),
 			]
 		);
 
 		$this->add_control(
 			'wk_table_columns',
 			[
-				'label'       => __( 'Table Columns', 'web-kit' ),
+				'label'       => esc_html__( 'Table Columns', 'web-kit' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $columns_repeater->get_controls(),
 				'default'     => [
-					[ 'column_label' => __( 'Loan Type', 'web-kit' ), 'column_align' => 'left' ],
-					[ 'column_label' => __( 'Best For', 'web-kit' ) ],
-					[ 'column_label' => __( 'Loan Amount', 'web-kit' ) ],
-					[ 'column_label' => __( 'Term', 'web-kit' ) ],
-					[ 'column_label' => __( 'Funding Speed', 'web-kit' ) ],
-					[ 'column_label' => __( 'Min. FICO', 'web-kit' ) ],
+					[ 'column_label' => esc_html__( 'Loan Type', 'web-kit' ), 'column_align' => 'left' ],
+					[ 'column_label' => esc_html__( 'Best For', 'web-kit' ) ],
+					[ 'column_label' => esc_html__( 'Loan Amount', 'web-kit' ) ],
+					[ 'column_label' => esc_html__( 'Term', 'web-kit' ) ],
+					[ 'column_label' => esc_html__( 'Funding Speed', 'web-kit' ) ],
+					[ 'column_label' => esc_html__( 'Min. FICO', 'web-kit' ) ],
 				],
 				'title_field' => '{{{ column_label }}}',
 			]
@@ -137,7 +137,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_rows',
 			[
-				'label' => __( 'Rows', 'web-kit' ),
+				'label' => esc_html__( 'Rows', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -150,11 +150,11 @@ class Html_Table extends Widget_Base {
 				"cell_{$i}",
 				[
 					/* translators: %d: cell/column number */
-					'label'       => sprintf( __( 'Cell %d', 'web-kit' ), $i ),
+					'label'       => sprintf( esc_html__( 'Cell %d', 'web-kit' ), $i ),
 					'type'        => Controls_Manager::TEXTAREA,
 					'rows'        => 2,
 					'label_block' => true,
-					'description' => 1 === $i ? __( 'Basic HTML allowed: <strong>, <br>, <em>.', 'web-kit' ) : '',
+					'description' => 1 === $i ? esc_html__( 'Basic HTML allowed: <strong>, <br>, <em>.', 'web-kit' ) : '',
 				]
 			);
 
@@ -162,7 +162,7 @@ class Html_Table extends Widget_Base {
 				"cell_{$i}_link",
 				[
 					/* translators: %d: cell/column number */
-					'label'       => sprintf( __( 'Cell %d Link (optional)', 'web-kit' ), $i ),
+					'label'       => sprintf( esc_html__( 'Cell %d Link (optional)', 'web-kit' ), $i ),
 					'type'        => Controls_Manager::URL,
 					'placeholder' => 'https://your-link.com',
 					'label_block' => true,
@@ -174,9 +174,9 @@ class Html_Table extends Widget_Base {
 				"cell_{$i}_color",
 				[
 					/* translators: %d: cell/column number */
-					'label'       => sprintf( __( 'Cell %d Text Color (optional)', 'web-kit' ), $i ),
+					'label'       => sprintf( esc_html__( 'Cell %d Text Color (optional)', 'web-kit' ), $i ),
 					'type'        => Controls_Manager::COLOR,
-					'description' => __( 'Overrides the Body/Accent color from the Style tab for this cell only.', 'web-kit' ),
+					'description' => esc_html__( 'Overrides the Body/Accent color from the Style tab for this cell only.', 'web-kit' ),
 				]
 			);
 
@@ -184,9 +184,9 @@ class Html_Table extends Widget_Base {
 				"cell_{$i}_bg",
 				[
 					/* translators: %d: cell/column number */
-					'label'       => sprintf( __( 'Cell %d Background Color (optional)', 'web-kit' ), $i ),
+					'label'       => sprintf( esc_html__( 'Cell %d Background Color (optional)', 'web-kit' ), $i ),
 					'type'        => Controls_Manager::COLOR,
-					'description' => __( 'Overrides the Row/Alternate Row background from the Style tab for this cell only.', 'web-kit' ),
+					'description' => esc_html__( 'Overrides the Row/Alternate Row background from the Style tab for this cell only.', 'web-kit' ),
 				]
 			);
 		}
@@ -194,7 +194,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_rows',
 			[
-				'label'       => __( 'Table Rows', 'web-kit' ),
+				'label'       => esc_html__( 'Table Rows', 'web-kit' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $rows_repeater->get_controls(),
 				'default'     => [
@@ -219,7 +219,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_settings',
 			[
-				'label' => __( 'Table Settings', 'web-kit' ),
+				'label' => esc_html__( 'Table Settings', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -227,11 +227,11 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_column_count_mode',
 			[
-				'label'   => __( 'Column Count', 'web-kit' ),
+				'label'   => esc_html__( 'Column Count', 'web-kit' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'auto'   => __( 'Auto (from Columns repeater)', 'web-kit' ),
-					'manual' => __( 'Manual override', 'web-kit' ),
+					'auto'   => esc_html__( 'Auto (from Columns repeater)', 'web-kit' ),
+					'manual' => esc_html__( 'Manual override', 'web-kit' ),
 				],
 				'default' => 'auto',
 			]
@@ -240,7 +240,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_manual_column_count',
 			[
-				'label'     => __( 'Number of Columns', 'web-kit' ),
+				'label'     => esc_html__( 'Number of Columns', 'web-kit' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 1,
 				'max'       => self::MAX_COLUMNS,
@@ -252,7 +252,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_responsive_scroll',
 			[
-				'label'        => __( 'Horizontal Scroll on Mobile', 'web-kit' ),
+				'label'        => esc_html__( 'Horizontal Scroll on Mobile', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -262,7 +262,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_sticky_header',
 			[
-				'label'        => __( 'Sticky Header Row', 'web-kit' ),
+				'label'        => esc_html__( 'Sticky Header Row', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
@@ -272,11 +272,11 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_first_col_accent',
 			[
-				'label'        => __( 'Accent-Style First Column', 'web-kit' ),
+				'label'        => esc_html__( 'Accent-Style First Column', 'web-kit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-				'description'  => __( 'Matches the reference design: bold, colored text in the left-most column.', 'web-kit' ),
+				'description'  => esc_html__( 'Matches the reference design: bold, colored text in the left-most column.', 'web-kit' ),
 			]
 		);
 
@@ -288,7 +288,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_style_header',
 			[
-				'label' => __( 'Header Row', 'web-kit' ),
+				'label' => esc_html__( 'Header Row', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -296,7 +296,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_header_bg_color',
 			[
-				'label'     => __( 'Background Color', 'web-kit' ),
+				'label'     => esc_html__( 'Background Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1F3A5F',
 				'selectors' => [ '{{WRAPPER}} .wk-table thead th' => 'background-color: {{VALUE}};' ],
@@ -306,7 +306,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_header_text_color',
 			[
-				'label'     => __( 'Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [ '{{WRAPPER}} .wk-table thead th' => 'color: {{VALUE}};' ],
@@ -324,7 +324,7 @@ class Html_Table extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_table_header_padding',
 			[
-				'label'      => __( 'Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -341,7 +341,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_style_body',
 			[
-				'label' => __( 'Body', 'web-kit' ),
+				'label' => esc_html__( 'Body', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -349,7 +349,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_body_bg_color',
 			[
-				'label'     => __( 'Row Background', 'web-kit' ),
+				'label'     => esc_html__( 'Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [ '{{WRAPPER}} .wk-table tbody td' => 'background-color: {{VALUE}};' ],
@@ -359,7 +359,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_body_alt_bg_color',
 			[
-				'label'     => __( 'Alternate Row Background', 'web-kit' ),
+				'label'     => esc_html__( 'Alternate Row Background', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F7F9FC',
 				'selectors' => [ '{{WRAPPER}} .wk-table tbody tr:nth-child(even) td' => 'background-color: {{VALUE}};' ],
@@ -369,7 +369,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_body_text_color',
 			[
-				'label'     => __( 'Text Color', 'web-kit' ),
+				'label'     => esc_html__( 'Text Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#1F3A5F',
 				'selectors' => [ '{{WRAPPER}} .wk-table tbody td' => 'color: {{VALUE}};' ],
@@ -379,10 +379,10 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_accent_color',
 			[
-				'label'       => __( 'Accent Color', 'web-kit' ),
+				'label'       => esc_html__( 'Accent Color', 'web-kit' ),
 				'type'        => Controls_Manager::COLOR,
 				'default'     => '#2E6FE0',
-				'description' => __( 'Used for the accented first column and for linked cell values.', 'web-kit' ),
+				'description' => esc_html__( 'Used for the accented first column and for linked cell values.', 'web-kit' ),
 				'selectors'   => [
 					'{{WRAPPER}} .wk-table tbody td.wk-first-col' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .wk-table tbody td a'            => 'color: {{VALUE}};',
@@ -401,7 +401,7 @@ class Html_Table extends Widget_Base {
 		$this->add_responsive_control(
 			'wk_table_body_padding',
 			[
-				'label'      => __( 'Padding', 'web-kit' ),
+				'label'      => esc_html__( 'Padding', 'web-kit' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -418,7 +418,7 @@ class Html_Table extends Widget_Base {
 		$this->start_controls_section(
 			'wk_table_section_style_border',
 			[
-				'label' => __( 'Borders & Container', 'web-kit' ),
+				'label' => esc_html__( 'Borders & Container', 'web-kit' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -426,7 +426,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_border_color',
 			[
-				'label'     => __( 'Border Color', 'web-kit' ),
+				'label'     => esc_html__( 'Border Color', 'web-kit' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#E5E9F0',
 				'selectors' => [
@@ -439,7 +439,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_border_width',
 			[
-				'label'     => __( 'Border Width', 'web-kit' ),
+				'label'     => esc_html__( 'Border Width', 'web-kit' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [ 'px' => [ 'min' => 0, 'max' => 5 ] ],
 				'default'   => [ 'size' => 1, 'unit' => 'px' ],
@@ -453,7 +453,7 @@ class Html_Table extends Widget_Base {
 		$this->add_control(
 			'wk_table_table_radius',
 			[
-				'label'     => __( 'Corner Radius', 'web-kit' ),
+				'label'     => esc_html__( 'Corner Radius', 'web-kit' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [ 'px' => [ 'min' => 0, 'max' => 40 ] ],
 				'selectors' => [
