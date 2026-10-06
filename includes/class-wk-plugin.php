@@ -82,8 +82,10 @@ final class Plugin {
 	 */
 	private function get_widgets() {
 		return [
-			'class-wk-html-table-widget.php' => '\\WebKit\\Widgets\\Html_Table',
-			'class-wk-faq-widget.php'        => '\\WebKit\\Widgets\\Faq',
+			'class-wk-html-table-widget.php'     => '\\WebKit\\Widgets\\Html_Table',
+			'class-wk-faq-widget.php'            => '\\WebKit\\Widgets\\Faq',
+			'class-wk-post-content-widget.php'   => '\\WebKit\\Widgets\\Post_Content',
+			'class-wk-ai-quick-links-widget.php' => '\\WebKit\\Widgets\\Ai_Quick_Links',
 		];
 	}
 
@@ -131,6 +133,20 @@ final class Plugin {
 		wp_register_style(
 			'wk-faq',
 			WK_URL . 'assets/css/wk-faq.css',
+			[],
+			WK_VERSION
+		);
+
+		wp_register_style(
+			'wk-post-content',
+			WK_URL . 'assets/css/wk-post-content.css',
+			[],
+			WK_VERSION
+		);
+
+		wp_register_style(
+			'wk-ai-quick-links',
+			WK_URL . 'assets/css/wk-ai-quick-links.css',
 			[],
 			WK_VERSION
 		);

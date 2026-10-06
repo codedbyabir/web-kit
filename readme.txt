@@ -27,7 +27,22 @@ panel and currently ships one widget:
   shows whichever post it's rendered on - no manual post picker needed,
   so a single-post Elementor template works correctly across every post.
   Renders as a plain, always-expanded list. Optional FAQPage JSON-LD
-  schema output for SEO.
+* **Web Kit Post Content** — displays current post content with complete
+  Elementor styling controls over all WordPress Gutenberg blocks:
+  - Paragraphs & body (colors, typography, margins, paddings, links, drop caps)
+  - Headings (global controls + granular individual H1–H6 overrides)
+  - Images (borders, radius, box shadows, margins, paddings, captions)
+  - Lists (bullet/number marker colors, list styles, spacing, indents)
+  - Tables (complete suite: headers, body cells, alternating/striped rows,
+    row hover, first-column accents, borders, border-radius, responsive
+    horizontal scroll, footers, captions, and layout modes)
+  - Blockquotes, Code/Pre blocks, Separators, and Gutenberg Buttons
+  Includes live sample content fallback in Elementor editor mode for instant preview.
+
+* **Web Kit AI Quick Links** — displays one-click AI query buttons for ChatGPT,
+  Claude, Perplexity, Google AI, and Microsoft Copilot with custom prompts, dynamic URL
+  token replacement (`{url}`), manual icon/SVG/image picker for each platform,
+  inline/grid/stacked layouts, SVG icons, and full button/icon styling controls.
 
 == Backend: the FAQs Meta Box ==
 

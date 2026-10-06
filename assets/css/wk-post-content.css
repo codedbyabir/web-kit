@@ -1,0 +1,263 @@
+/**
+ * Web Kit - Post Content Widget base styles
+ * Colors, typography, borders, and spacing are controlled from the widget's
+ * Style tab via Elementor selectors. This file provides clean structural defaults
+ * and handles Gutenberg layout primitives (alignment, responsive tables, captions).
+ *
+ * @package Web_Kit
+ */
+
+.wk-post-content {
+	width: 100%;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.wk-post-content *,
+.wk-post-content *::before,
+.wk-post-content *::after {
+	box-sizing: border-box;
+}
+
+/* Headings base */
+.wk-post-content h1,
+.wk-post-content h2,
+.wk-post-content h3,
+.wk-post-content h4,
+.wk-post-content h5,
+.wk-post-content h6 {
+	margin-top: 0;
+	clear: both;
+}
+
+/* Paragraphs & Links */
+.wk-post-content p {
+	margin-top: 0;
+}
+
+.wk-post-content a {
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+/* Images & Figures */
+.wk-post-content img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.wk-post-content figure {
+	margin: 0 0 1.5em;
+}
+
+.wk-post-content figure.aligncenter,
+.wk-post-content .aligncenter {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.wk-post-content figure.aligncenter img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wk-post-content figure.alignleft,
+.wk-post-content .alignleft {
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 1em;
+}
+
+.wk-post-content figure.alignright,
+.wk-post-content .alignright {
+	float: right;
+	margin-left: 1.5em;
+	margin-bottom: 1em;
+}
+
+.wk-post-content figcaption,
+.wk-post-content .wp-caption-text {
+	margin-top: 0.5em;
+	font-size: 0.875em;
+	color: #64748b;
+}
+
+/* Lists */
+.wk-post-content ul,
+.wk-post-content ol {
+	padding-left: 1.5em;
+	margin-top: 0;
+	margin-bottom: 1.5em;
+}
+
+.wk-post-content li {
+	margin-bottom: 0.5em;
+}
+
+.wk-post-content li:last-child {
+	margin-bottom: 0;
+}
+
+.wk-post-content ul ul,
+.wk-post-content ol ol,
+.wk-post-content ul ol,
+.wk-post-content ol ul {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+/* Drop Caps */
+.wk-post-content .has-drop-cap:not(:focus):first-letter {
+	float: left;
+	font-size: 3.5em;
+	line-height: 0.85;
+	font-weight: 700;
+	margin: 0.1em 0.15em 0 0;
+	text-transform: uppercase;
+	font-style: normal;
+}
+
+/* Tables Structure */
+.wk-post-content .wp-block-table {
+	margin: 0 0 1.75em;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.wk-post-content .wk-table-scroll-wrap {
+	width: 100%;
+	margin: 0 0 1.75em;
+}
+
+/* Responsive Table Scroll */
+.wk-post-content.wk-has-table-scroll .wp-block-table,
+.wk-post-content.wk-has-table-scroll .wk-table-scroll-wrap {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.wk-post-content table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	text-align: left;
+}
+
+.wk-post-content table th,
+.wk-post-content table td {
+	padding: 12px 16px;
+	vertical-align: middle;
+}
+
+.wk-post-content table thead th {
+	font-weight: 600;
+	text-align: left;
+}
+
+/* Sticky Header on Scroll */
+.wk-post-content.wk-table-sticky-head table thead th {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+
+/* Blockquote */
+.wk-post-content blockquote,
+.wk-post-content .wp-block-quote {
+	margin: 1.5em 0;
+	padding: 1em 1.5em;
+	border-left: 4px solid #2563eb;
+	background-color: #f8fafc;
+}
+
+.wk-post-content blockquote p {
+	margin-bottom: 0.5em;
+}
+
+.wk-post-content blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+.wk-post-content blockquote cite {
+	display: block;
+	font-size: 0.875em;
+	font-style: italic;
+	color: #64748b;
+	margin-top: 0.5em;
+}
+
+/* Pre / Code */
+.wk-post-content pre,
+.wk-post-content .wp-block-code {
+	background: #1e293b;
+	color: #f8fafc;
+	padding: 1em 1.25em;
+	border-radius: 6px;
+	overflow-x: auto;
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 0.875em;
+	line-height: 1.6;
+	margin: 1.5em 0;
+}
+
+.wk-post-content code {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 0.875em;
+	background: #f1f5f9;
+	color: #0f172a;
+	padding: 0.2em 0.4em;
+	border-radius: 4px;
+}
+
+.wk-post-content pre code {
+	background: transparent;
+	color: inherit;
+	padding: 0;
+}
+
+/* Separator / Divider */
+.wk-post-content hr,
+.wk-post-content hr.wp-block-separator {
+	border: 0;
+	border-top: 1px solid #e2e8f0;
+	margin: 2em 0;
+	clear: both;
+}
+
+/* Buttons */
+.wk-post-content .wp-block-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin: 1.5em 0;
+}
+
+.wk-post-content .wp-block-button__link {
+	display: inline-block;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 4px;
+	background-color: #2563eb;
+	color: #ffffff;
+	font-weight: 500;
+	transition: all 0.2s ease;
+}
+
+/* Custom Highlight Box (.wk-highlight-box) */
+.wk-post-content .wk-highlight-box {
+	padding: 20px 24px;
+	margin: 1.5em 0;
+	background-color: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.wk-post-content .wk-highlight-box > :first-child {
+	margin-top: 0;
+}
+
+.wk-post-content .wk-highlight-box > :last-child {
+	margin-bottom: 0;
+}
